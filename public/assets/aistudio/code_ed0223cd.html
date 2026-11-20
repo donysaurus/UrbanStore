@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&amp;family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-primary-fixed-variant":"#474646","tertiary-fixed-dim":"#ffb4a4","on-secondary-fixed-variant":"#474743","on-primary":"#ffffff","secondary-fixed-dim":"#c8c7c0","secondary-container":"#deddd7","outline-variant":"#c4c7c7","surface-alt":"#F7F7F5","surface":"#f9f9f9","on-surface-variant":"#444748","on-secondary":"#ffffff","surface-variant":"#e2e2e2","surface-dim":"#dadada","inverse-primary":"#c8c6c5","on-primary-container":"#858383","ink":"#111111","surface-container-lowest":"#ffffff","on-error":"#ffffff","surface-container-high":"#e8e8e8","inverse-on-surface":"#f0f1f1","secondary-fixed":"#e4e2dc","error":"#ba1a1a","background":"#f9f9f9","secondary":"#5e5f5a","primary-container":"#1c1b1b","studio-gray":"#EFEFEF","terracotta":"#C84B31","on-primary-fixed":"#1c1b1b","on-tertiary-fixed":"#3e0500","primary-fixed":"#e5e2e1","outline":"#747878","on-tertiary":"#ffffff","surface-container-low":"#f3f3f4","tertiary-fixed":"#ffdad3","on-error-container":"#93000a","canvas":"#FFFFFF","primary":"#000000","on-secondary-fixed":"#1b1c18","on-tertiary-container":"#dd5a3e","surface-bright":"#f9f9f9","error-container":"#ffdad6","on-tertiary-fixed-variant":"#891e07","tertiary":"#000000","surface-container-highest":"#e2e2e2","on-surface":"#1a1c1c","on-secondary-container":"#61615c","tertiary-container":"#3e0500","on-background":"#1a1c1c","surface-tint":"#5f5e5e","inverse-surface":"#2f3131","muted-slate":"#6B6B66","primary-fixed-dim":"#c8c6c5","surface-container":"#eeeeee","hairline":"#E5E5E5"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"space-md":"1rem","space-2xl":"4rem","space-xs":"0.25rem","margin-desktop":"3rem","space-lg":"1.5rem","margin":"1rem","space-xl":"2.5rem","gutter-desktop":"1.5rem","space-sm":"0.5rem","gutter":"1rem"},fontFamily:{"label-md":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"headline-lg":["Bodoni Moda"],"headline-md":["Bodoni Moda"],"headline-sm":["Bodoni Moda"],"currency-price":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"display-hero":["Bodoni Moda"],"label-lg":["Plus Jakarta Sans"],"headline-lg-mobile":["Bodoni Moda"],"title-md":["Plus Jakarta Sans"],"display-hero-mobile":["Bodoni Moda"]},fontSize:{"label-md":["11px",{lineHeight:"14px",letterSpacing:"0.06em",fontWeight:"600"}],"body-md":["14px",{lineHeight:"22px",letterSpacing:"0em",fontWeight:"400"}],"headline-lg":["36px",{lineHeight:"44px",letterSpacing:"0.06em",fontWeight:"500"}],"headline-md":["24px",{lineHeight:"32px",letterSpacing:"0.04em",fontWeight:"500"}],"headline-sm":["18px",{lineHeight:"24px",letterSpacing:"0.03em",fontWeight:"500"}],"currency-price":["14px",{lineHeight:"18px",letterSpacing:"-0.02em",fontWeight:"600"}],"body-sm":["12px",{lineHeight:"18px",letterSpacing:"0.01em",fontWeight:"400"}],"body-lg":["16px",{lineHeight:"26px",letterSpacing:"-0.01em",fontWeight:"400"}],"display-hero":["72px",{lineHeight:"76px",letterSpacing:"0.04em",fontWeight:"400"}],"label-lg":["13px",{lineHeight:"16px",letterSpacing:"0.08em",fontWeight:"600"}],"headline-lg-mobile":["26px",{lineHeight:"32px",letterSpacing:"0.05em",fontWeight:"500"}],"title-md":["16px",{lineHeight:"22px",letterSpacing:"0em",fontWeight:"600"}],"display-hero-mobile":["36px",{lineHeight:"40px",letterSpacing:"0.03em",fontWeight:"400"}]}}}};</script></head><body class="bg-canvas text-on-surface font-body-md text-body-md"><header class="fixed top-0 left-0 w-full z-50 bg-canvas border-b border-hairline"><div class="h-16 w-full px-margin lg:px-margin-desktop flex items-center justify-between"><div class="flex items-center"><a class="font-headline-md text-headline-md uppercase tracking-wider text-ink" data-path="home" href="#">URBANSTORE.</a></div><nav class="hidden md:flex items-center gap-space-xl" data-active-classes="text-ink border-b-2 border-ink"><a class="font-label-lg text-label-lg uppercase tracking-widest text-on-surface-variant hover:text-ink transition-colors pb-1" data-path="pria" href="#">Pria</a><a class="font-label-lg text-label-lg uppercase tracking-widest text-on-surface-variant hover:text-ink transition-colors pb-1" data-path="wanita" href="#">Wanita</a><a class="font-label-lg text-label-lg uppercase tracking-widest text-on-surface-variant hover:text-ink transition-colors pb-1" data-path="lookbook" href="#">Lookbook</a><a class="font-label-lg text-label-lg uppercase tracking-widest text-on-surface-variant hover:text-ink transition-colors pb-1" data-path="new-drops" href="#">New Drops</a></nav><div class="flex items-center gap-space-md"><button aria-label="Search" class="p-space-xs text-ink hover:text-secondary transition-colors"><span class="material-symbols-outlined text-[20px]">search</span></button><a aria-label="Account" class="p-space-xs text-ink hover:text-secondary transition-colors hidden sm:inline-flex" data-path="account" href="#"><span class="material-symbols-outlined text-[20px]">person</span></a><a aria-label="Wishlist" class="p-space-xs text-ink hover:text-secondary transition-colors hidden sm:inline-flex" data-path="wishlist" href="#"><span class="material-symbols-outlined text-[20px]">favorite</span></a><button aria-label="Shopping Cart" class="p-space-xs text-ink hover:text-secondary transition-colors flex items-center relative"><span class="material-symbols-outlined text-[20px]">shopping_bag</span><span class="ml-1 font-label-md text-label-md bg-ink text-on-primary px-1.5 py-0.5 leading-none">0</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-space-xs"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-canvas"><div class="flex flex-col w-full">
+<!-- Top Marquee / Curated Drop Notice -->
+<div class="w-full bg-studio-gray px-margin lg:px-margin-desktop py-2 border-b border-hairline flex items-center justify-between overflow-hidden">
+<div class="flex items-center gap-space-md text-ink">
+<span class="inline-block w-2 h-2 bg-terracotta rounded-none"></span>
+<span class="font-label-md text-label-md uppercase tracking-widest">Drop 04 // Spring Summer '26 Live</span>
+<span class="hidden md:inline font-body-sm text-body-sm text-muted-slate">• Gratis ongkir se-Jabodetabek min. belanja Rp499.000</span>
+</div>
+<div class="flex items-center gap-space-sm font-label-md text-label-md uppercase tracking-wider text-muted-slate">
+<span class="text-ink">ID / IDR (Rp)</span>
+<span>•</span>
+<a class="hover:text-ink transition-colors" href="#size-guide">Size Guide Visual ↗</a>
+</div>
+</div>
+<!-- Hero Section (Editorial Asymmetric Collage) -->
+<section class="relative w-full bg-canvas overflow-hidden pt-space-2xl pb-space-2xl lg:pb-36 lg:pt-20 border-b border-hairline">
+<div class="max-w-[1400px] mx-auto px-margin lg:px-margin-desktop relative">
+<!-- Overlapping Floating Photo 1 (Top Left Tilted) -->
+<div class="hidden lg:block absolute left-4 top-4 w-[280px] xl:w-[320px] z-10 select-none pointer-events-none transform -rotate-6 transition-transform duration-500 hover:-rotate-3">
+<div class="bg-studio-gray p-2 shadow-2xl border border-hairline">
+<div class="w-full aspect-[3/4] bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="High fashion male editorial model posing against clean studio light gray backdrop, wearing an oversized black textured tweed chore jacket with crisp white collared shirt underneath, sharp high contrast lighting, neutral tones, 3:4 portrait view" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPcyrLq0siuedj3fuqXjUMOwtJ7aBCuJUxL-hCpDQctSG1XOkT1CPXVxGesfFMyWpoobZYcnKqCVzbYd7spsjnNqk-Os2wcbaazzkLZwWntpfUUk6VdsI4lXDF8zVJxccL-VkdfU9xiQU-xnXD2shISRq2PYSAYj4fq5rdcSu1FQTYzXWR0_Ly3qUDMLVaX84F9fCnJvxmmY-sI92-SJnLdrs_8gDe_hWPdi8bT-c"/>
+</div>
+<div class="pt-2 px-1 flex justify-between items-center text-ink">
+<span class="font-label-md text-label-md tracking-wider uppercase">Look Nº 01</span>
+<span class="font-body-sm text-body-sm text-muted-slate">Chore Overshirt</span>
+</div>
+</div>
+</div>
+<!-- Overlapping Floating Photo 2 (Bottom Right Tilted) -->
+<div class="hidden lg:block absolute right-8 -bottom-16 w-[260px] xl:w-[300px] z-20 select-none pointer-events-none transform rotate-6 transition-transform duration-500 hover:rotate-3">
+<div class="bg-studio-gray p-2 shadow-2xl border border-hairline">
+<div class="w-full aspect-[3/4] bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Minimalist street fashion male model leaning against off-white studio wall, wearing clean boxy heavyweight white t-shirt and wide leg washed grey pleated denim trousers, editorial full body posture, fashion lookbook aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRBDv4dtAIb3kKpIGgXrWii11VWRv4T3PBVhQm3n-tYc4DunPTfiALWHIZsjkTsS44NvmVjRqDpEkrv0kcCHx_uDIaOQiIpJdz0gw8-0nozfebnAVElhP5P6y-ZcSbcaFVJOj7PFPxtWWdR7muFmOI8XGY-xz_iMY_a9YXjqWkoH3TF-kM8eXWhUjevNNB1oPlykM6CSU4wqH8an2hWGauTigof3wINT8sogSscrk"/>
+</div>
+<div class="pt-2 px-1 flex justify-between items-center text-ink">
+<span class="font-label-md text-label-md tracking-wider uppercase">Look Nº 07</span>
+<span class="font-body-sm text-body-sm text-muted-slate">Washed Slate Set</span>
+</div>
+</div>
+</div>
+<!-- Central Typographic Statement -->
+<div class="relative z-15 flex flex-col items-center text-center max-w-4xl mx-auto py-8 lg:py-16">
+<div class="inline-flex items-center gap-2 mb-space-md border border-hairline px-3 py-1 bg-surface-alt">
+<span class="w-1.5 h-1.5 bg-ink"></span>
+<span class="font-label-md text-label-md uppercase tracking-widest text-ink">Curated Fashion System</span>
+</div>
+<!-- Huge Display Editorial Serif Headline -->
+<h1 class="font-display-hero text-[46px] leading-[48px] sm:text-[68px] sm:leading-[70px] lg:text-[96px] lg:leading-[94px] tracking-tight uppercase text-ink select-none font-normal">
+          FIT CHECK <br/>
+<span class="italic font-light">STARTS</span> HERE<span class="text-terracotta">.</span>
+</h1>
+<!-- Mobile Editorial Photo Preview (Visible only on mobile/tablet) -->
+<div class="lg:hidden w-full my-space-lg grid grid-cols-2 gap-space-sm">
+<div class="bg-studio-gray p-1.5 border border-hairline transform -rotate-2">
+<img class="w-full aspect-[3/4] object-cover" data-alt="High fashion male editorial model posing against clean studio light gray backdrop, wearing an oversized black textured tweed chore jacket with crisp white collared shirt underneath, sharp high contrast lighting, neutral tones, 3:4 portrait view" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHg0PO3IhKJO2DnrJ7gltvOcz9oIBXDhKhUKskaOQNiMcmERSSF74J4-vQ6fAuJK1SFUIemjdBIU8CfU-fWpTUDKf0G4lnyoeKaqcZDtVytCsp9s4jAaXIp0oc8sB_Wfo7TCoBpP4LiaqiuK04MKRW7NMKgvrESDTyMIa4IbmA8nap7B2m6K43PmtblPuXyw-bMnBZAKruKILPEGjDyoxe-gBXK45sYWOsGzETJJk"/>
+</div>
+<div class="bg-studio-gray p-1.5 border border-hairline transform rotate-2">
+<img class="w-full aspect-[3/4] object-cover" data-alt="Minimalist street fashion male model leaning against off-white studio wall, wearing clean boxy heavyweight white t-shirt and wide leg washed grey pleated denim trousers, editorial full body posture, fashion lookbook aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASIcTaCWjCRO7mmEMV0wcZaCXa3_17aRNM-qNlyyVYqGS1rJAUgaUI9M5x2VnZQK2GrgabnEHpJfZIuulFq2QVecHqOZZGWWpyn3iRF3o5jWbCMQYjKAf1mOytZSeIgTV1XbloYMclmbav1tPi38Wli8K9xziOrcTQ_i2Q_DB19ApPPsjRdFW7Un0ylOmLfe4jIIuWzoPny_FQ8vgm0UjTOKJauxxOW1xvXFfxRBs"/>
+</div>
+</div>
+<!-- Subcopy -->
+<p class="font-body-lg text-body-lg text-secondary max-w-xl mt-space-lg mb-space-xl">
+          Pilihan fashion terkurasi. Size lebih jelas dalam sentimeter. Checkout tanpa drama.
+        </p>
+<!-- CTAs -->
+<div class="flex flex-col sm:flex-row items-center gap-space-md w-full sm:w-auto">
+<a class="w-full sm:w-auto px-8 py-3.5 bg-ink text-on-primary font-label-lg text-label-lg uppercase tracking-widest hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2" href="#new-arrival">
+            Explore the Drop <span class="material-symbols-outlined text-[16px]">arrow_outward</span>
+</a>
+<a class="w-full sm:w-auto px-8 py-3.5 bg-transparent border border-ink text-ink font-label-lg text-label-lg uppercase tracking-widest hover:bg-ink hover:text-on-primary transition-all flex items-center justify-center gap-2" href="#categories">
+            Browse Categories
+          </a>
+</div>
+<!-- Metric micro-strip -->
+<div class="grid grid-cols-3 gap-6 sm:gap-12 mt-space-2xl pt-space-xl border-t border-hairline w-full max-w-xl text-left">
+<div>
+<p class="font-label-lg text-label-lg text-ink font-bold">100%</p>
+<p class="font-body-sm text-body-sm text-muted-slate">Terkurasi ketat</p>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-ink font-bold">±1 CM</p>
+<p class="font-body-sm text-body-sm text-muted-slate">Akurasi ukuran</p>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-ink font-bold">&lt; 2 MIN</p>
+<p class="font-body-sm text-body-sm text-muted-slate">Checkout instan</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Browse by Categories -->
+<section class="w-full bg-canvas py-space-2xl border-b border-hairline" id="categories">
+<div class="max-w-[1400px] mx-auto px-margin lg:px-margin-desktop">
+<!-- Section Header -->
+<div class="flex items-baseline justify-between mb-space-xl border-b border-hairline pb-space-sm">
+<div>
+<span class="font-label-md text-label-md uppercase tracking-widest text-muted-slate block mb-1">Kurasi Departemen</span>
+<h2 class="font-headline-lg text-headline-lg uppercase text-ink">Browse by Categories</h2>
+</div>
+<a class="font-label-lg text-label-lg uppercase tracking-widest text-ink hover:text-muted-slate transition-colors flex items-center gap-1 group" href="#new-arrival">
+          View all <span class="material-symbols-outlined text-[16px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">arrow_outward</span>
+</a>
+</div>
+<!-- Categories 3-Column Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
+<!-- Category 1: Pria -->
+<a class="group block relative bg-canvas cursor-pointer" href="#new-arrival">
+<div class="relative w-full aspect-[4/5] bg-studio-gray overflow-hidden border border-hairline mb-space-sm">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" data-alt="Editorial portrait of a handsome Asian male model in dark minimalist olive green winter work jacket with black mock-neck shirt, studio lookbook lighting with subtle shadow, neutral gray minimalist backdrop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqgwpOFPDPdoIkxgrqftv1Q7GEAGf5lwggcb_qzC-26hB5fdbutl_-gpI2N5NQYRaKAI8kqPoHPn5qeABduYiAW3-W05O4LfMjYF8yMs8iALW2iMdNGYXrXSOSNgbkockKyUGcBBtqv7nmn5vWfVqZumf07LECMtLK9WZQre8Z3Xz6sWhp6s7sh7b5q2RgFFDhYQpbrX3iXvbF8j7IzyfT5qWw0XhnbYTNlHCTj-g"/>
+<div class="absolute top-3 left-3 bg-canvas px-2.5 py-1 text-ink font-label-md text-label-md uppercase tracking-wider border border-hairline">
+              Nº 01
+            </div>
+<div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+</div>
+<div class="flex items-baseline justify-between pt-1">
+<div>
+<h3 class="font-headline-sm text-headline-sm uppercase text-ink group-hover:text-muted-slate transition-colors">Pria</h3>
+<p class="font-body-sm text-body-sm text-muted-slate">Oversized silhouettes, relaxed shirts &amp; tailored trousers</p>
+</div>
+<span class="font-label-md text-label-md text-ink uppercase tracking-widest">34 Items</span>
+</div>
+</a>
+<!-- Category 2: Wanita -->
+<a class="group block relative bg-canvas cursor-pointer" href="#new-arrival">
+<div class="relative w-full aspect-[4/5] bg-studio-gray overflow-hidden border border-hairline mb-space-sm">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" data-alt="Contemporary fashion female model looking sideways wearing clean structured light gray drop-shoulder sweatshirt, modern minimal portrait, warm diffused studio flash on off-white backdrop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPi7SxrImWcIMaLZATfH2fv45FgMp3N7V87G7MPjTHdrMCPemqHwMhRNpRkDOkkEPKrzZizusD0-3L_g25lQZyAbe_QWoXs0vD0UqXlMLL9ngZF3yB4rCwCjwebhJy6_wu3y6PZhptxBENjql4QQNH8YeBIJyzJr1OZohuiHD163Fk23doEktn2353Hih57a5be0k6rYuGQ2RmxPhg2moFf1b66Vbmwf0SVbClvSA"/>
+<div class="absolute top-3 left-3 bg-canvas px-2.5 py-1 text-ink font-label-md text-label-md uppercase tracking-wider border border-hairline">
+              Nº 02
+            </div>
+<div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+</div>
+<div class="flex items-baseline justify-between pt-1">
+<div>
+<h3 class="font-headline-sm text-headline-sm uppercase text-ink group-hover:text-muted-slate transition-colors">Wanita</h3>
+<p class="font-body-sm text-body-sm text-muted-slate">Structured essentials, cropped blazers &amp; fluid drape cuts</p>
+</div>
+<span class="font-label-md text-label-md text-ink uppercase tracking-widest">48 Items</span>
+</div>
+</a>
+<!-- Category 3: Outerwear & Essentials -->
+<a class="group block relative bg-canvas cursor-pointer" href="#new-arrival">
+<div class="relative w-full aspect-[4/5] bg-studio-gray overflow-hidden border border-hairline mb-space-sm">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" data-alt="Full shot of an athletic model standing outdoors wearing army olive lightweight puffer jacket and dark earth tone cargo trousers, minimal clean outdoor editorial fashion backdrop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCcgXQAA_4UFi4DBjWrIMQJjTs4VcVDcDUOTtjZGJLVjYmmSD8ReXR0Dx8CWI4MBEjJmKvAPv_Q3KaDhDxDrUv01WpWJnHWOOruExJaWmbFXH4uNe4-gxtmflZDKBfrZd4HVxMi1Pj1Um-NhngyGRSMGiU76kViJEZaVNobW2DRgj9l5V572KWoSe8xv4P6Ps9UfOJaqzhxUiT2c1vO63mQI_4R3eB9YVI1QV0KWI"/>
+<div class="absolute top-3 left-3 bg-canvas px-2.5 py-1 text-ink font-label-md text-label-md uppercase tracking-wider border border-hairline">
+              Nº 03
+            </div>
+<div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+</div>
+<div class="flex items-baseline justify-between pt-1">
+<div>
+<h3 class="font-headline-sm text-headline-sm uppercase text-ink group-hover:text-muted-slate transition-colors">Outerwear &amp; Essentials</h3>
+<p class="font-body-sm text-body-sm text-muted-slate">Utility vests, chore jackets &amp; heavyweight cotton tees</p>
+</div>
+<span class="font-label-md text-label-md text-ink uppercase tracking-widest">26 Items</span>
+</div>
+</a>
+</div>
+</div>
+</section>
+<!-- Section: Editorial Spotlight Banner -->
+<section class="w-full bg-surface-alt py-space-xl border-b border-hairline">
+<div class="max-w-[1400px] mx-auto px-margin lg:px-margin-desktop flex flex-col md:flex-row items-center justify-between gap-space-lg">
+<div class="flex items-center gap-space-md">
+<span class="font-headline-md text-headline-md uppercase text-ink">NO SIZING GUESSWORK.</span>
+<span class="hidden lg:inline text-hairline">|</span>
+<p class="font-body-md text-body-md text-muted-slate max-w-md">Setiap produk diukur manual dalam sentimeter. Toleransi akurasi ±1 cm untuk ukuran yang pas sejak unboxing pertama.</p>
+</div>
+<div class="flex items-center gap-space-sm w-full md:w-auto">
+<button class="px-5 py-2.5 bg-canvas border border-hairline text-ink font-label-lg text-label-lg uppercase tracking-wider hover:border-ink transition-colors flex items-center gap-2" onclick="document.getElementById('size-modal').classList.toggle('hidden')">
+<span class="material-symbols-outlined text-[18px]">straighten</span> Panduan Size Guide (CM)
+        </button>
+</div>
+</div>
+</section>
+<!-- Section: New Arrival / Latest Arrivals (Asymmetric Lookbook Grid) -->
+<section class="w-full bg-canvas py-space-2xl border-b border-hairline" id="new-arrival">
+<div class="max-w-[1400px] mx-auto px-margin lg:px-margin-desktop">
+<!-- Section Top Controls & Filter Tabs -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-space-xl gap-space-md border-b border-hairline pb-space-sm">
+<div>
+<span class="font-label-md text-label-md uppercase tracking-widest text-muted-slate block mb-1">Kurasi Terkini 2026</span>
+<h2 class="font-headline-lg text-headline-lg uppercase text-ink">New Arrival</h2>
+</div>
+<!-- Interactive Category Switcher -->
+<div class="flex items-center gap-1 sm:gap-2">
+<button class="filter-tab px-4 py-1.5 font-label-lg text-label-lg uppercase tracking-wider bg-ink text-on-primary transition-all" id="tab-all" onclick="filterProducts('all')">
+            Semua (6)
+          </button>
+<button class="filter-tab px-4 py-1.5 font-label-lg text-label-lg uppercase tracking-wider bg-transparent text-secondary hover:text-ink transition-all" id="tab-pria" onclick="filterProducts('pria')">
+            Pria (4)
+          </button>
+<button class="filter-tab px-4 py-1.5 font-label-lg text-label-lg uppercase tracking-wider bg-transparent text-secondary hover:text-ink transition-all" id="tab-wanita" onclick="filterProducts('wanita')">
+            Wanita (2)
+          </button>
+</div>
+</div>
+<!-- Asymmetric Editorial Grid (Mix of standard 1-col & 2-col spotlight card) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-space-lg" id="product-grid">
+<!-- Product 1: Oversized Cotton Work Shirt (Spotlight 5 cols on lg) -->
+<div class="product-item lg:col-span-5 flex flex-col group" data-category="pria">
+<div class="relative w-full aspect-[4/5] bg-studio-gray overflow-hidden border border-hairline mb-space-sm">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="High quality studio shot of an oversized textured black cotton work shirt worn over a white collared inner shirt by an Asian male model, minimal backdrop, high contrast editorial lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCz7YXGSA-C3XWwNdgDSP3KgtpJyQ7dcI30U_eUghznd-bQxzbyDpfVKqKVxi0Rpv45l2qItGnG1vDQGqK7X4SsmcL7rKjGpj4Pk0DnGlHU8v5mjNp8ggRX5klaMzj1jDocAVALHbKIVxhXoe7LwfWNMTuCeJZaImyiTnb8KbDdq47TaHQAH2F0PI5SUtztdiG1-5qWemMEX4hLkZngLtypg4finFL0IDI3zew3das"/>
+<!-- Badges -->
+<div class="absolute top-3 left-3 flex flex-col gap-1 items-start">
+<span class="bg-terracotta text-on-primary px-2 py-0.5 font-label-md text-label-md uppercase tracking-widest">-15%</span>
+<span class="bg-canvas text-ink px-2 py-0.5 font-label-md text-label-md uppercase tracking-widest border border-hairline">New Drop</span>
+</div>
+<!-- Wishlist Button -->
+<button aria-label="Add to Wishlist" class="absolute top-3 right-3 w-9 h-9 bg-canvas/90 backdrop-blur-sm border border-hairline flex items-center justify-center text-ink hover:text-terracotta transition-colors" onclick="toggleWishlist(this)">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+<!-- Quick Add Bar -->
+<div class="absolute bottom-0 inset-x-0 bg-canvas/95 border-t border-hairline p-2 translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex items-center justify-between">
+<span class="font-label-md text-label-md uppercase text-muted-slate pl-2">Quick Size:</span>
+<div class="flex gap-1">
+<button class="w-7 h-7 text-xs border border-hairline hover:border-ink hover:bg-ink hover:text-on-primary transition-colors" onclick="addToBag('Oversized Cotton Work Shirt', 'S', 249000)">S</button>
+<button class="w-7 h-7 text-xs border border-hairline hover:border-ink hover:bg-ink hover:text-on-primary transition-colors" onclick="addToBag('Oversized Cotton Work Shirt', 'M', 249000)">M</button>
+<button class="w-7 h-7 text-xs border border-hairline hover:border-ink hover:bg-ink hover:text-on-primary transition-colors" onclick="addToBag('Oversized Cotton Work Shirt', 'L', 249000)">L</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<h3 class="font-title-md text-title-md text-ink group-hover:text-muted-slate transition-colors">Oversized Cotton Work Shirt</h3>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 bg-neutral-900 border border-hairline inline-block" title="Onyx Black"></span>
+<span class="w-3 h-3 bg-neutral-100 border border-hairline inline-block" title="Off White"></span>
+<span class="w-3 h-3 bg-stone-500 border border-hairline inline-block" title="Olive Green"></span>
+</div>
+</div>
+<div class="flex items-baseline gap-space-sm">
+<span class="font-currency-price text-currency-price text-ink">Rp249.000</span>
+<span class="font-body-sm text-body-sm line-through text-muted-slate">Rp299.000</span>
+<span class="font-label-md text-label-md text-terracotta">Hemat Rp50.000</span>
+</div>
+<span class="font-body-sm text-body-sm text-muted-slate">Heavyweight 100% twill cotton, boxy drop shoulder cut</span>
+</div>
+</div>
+<!-- Product 2: Relaxed Tailored Blazer (Spotlight 7 cols on lg with landscape or editorial emphasis) -->
+<div class="product-item lg:col-span-7 flex flex-col group" data-category="wanita">
+<div class="relative w-full aspect-[4/5] lg:aspect-[16/11] bg-studio-gray overflow-hidden border border-hairline mb-space-sm">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Editorial lookbook image of female model in relaxed tailored oversized blazer holding a leather structured tote bag, modern clean studio photography, architectural high fashion framing" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBVoC1BZ7dFiGTCw2E1oQGJ4em0iqEpsjyn-GBSrcarSnsPe7GDAi3qIjeqDCbOgZHsDmCdFIEl3eqQKDeq-62L-39CQvGIXEZvQSVkEILeXPzqo0LDk0Mpw52yDa-Njb_POL7StNJlpiuR81RrRqnrAJcdQE6hctIIxgNTSwtlnVX9qRsOAtc6V730K-Y9le_NlIpzbdT7DlR5hSHBPNd3uEGMJScM_pAiKMVScM"/>
+<!-- Badges -->
+<div class="absolute top-3 left-3 flex flex-col gap-1 items-start">
+<span class="bg-terracotta text-on-primary px-2 py-0.5 font-label-md text-label-md uppercase tracking-widest">-10%</span>
+</div>
+<!-- Wishlist Button -->
+<button aria-label="Add to Wishlist" class="absolute top-3 right-3 w-9 h-9 bg-canvas/90 backdrop-blur-sm border border-hairline flex items-center justify-center text-ink hover:text-terracotta transition-colors" onclick="toggleWishlist(this)">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+<!-- Quick Add Bar -->
+<div class="absolute bottom-0 inset-x-0 bg-canvas/95 border-t border-hairline p-2 translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex items-center justify-between">
+<span class="font-label-md text-label-md uppercase text-muted-slate pl-2">Quick Size:</span>
+<div class="flex gap-1">
+<button class="w-7 h-7 text-xs border border-hairline hover:border-ink hover:bg-ink hover:text-on-primary transition-colors" onclick="addToBag('Relaxed Tailored Blazer', 'M', 489000)">M</button>
+<button class="w-7 h-7 text-xs border border-hairline hover:border-ink hover:bg-ink hover:text-on-primary transition-colors" onclick="addToBag('Relaxed Tailored Blazer', 'L', 489000)">L</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<h3 class="font-title-md text-title-md text-ink group-hover:text-muted-slate transition-colors">Relaxed Tailored Blazer</h3>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 bg-neutral-800 border border-hairline inline-block" title="Charcoal"></span>
+<span class="w-3 h-3 bg-amber-950 border border-hairline inline-block" title="Deep Mocha"></span>
+</div>
+</div>
+<div class="flex items-baseline gap-space-sm">
+<span class="font-currency-price text-currency-price text-ink">Rp489.000</span>
+<span class="font-body-sm text-body-sm line-through text-muted-slate">Rp549.000</span>
+<span class="font-label-md text-label-md text-terracotta">-10% Off</span>
+</div>
+<span class="font-body-sm text-body-sm text-muted-slate">Soft shoulder padding, unlined inner seams for warm climate</span>
+</div>
+</div>
+<!-- Product 3: Wide Leg Pleated Trouser (4 cols) -->
+<div class="product-item lg:col-span-4 flex flex-col group" data-category="pria">
+<div class="relative w-full aspect-[3/4] bg-studio-gray overflow-hidden border border-hairline mb-space-sm">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Full length studio fashion photography of model wearing wide leg washed pleated trousers and minimal black loafers, ultra sharp clean neutral styling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuClCi5sE4VwZFQ2hT5UvAgEsMKqugBzSCakcG3dfGm3UcqGqf9Rpa6eX-_zcsb8CdKkZ1Sv0p3Ev_gc003Is189exN58XpYR_mGXQ9k8ritLPLzduf3aYGcMLxi7crhfpx1Gsd8TX46Jkx0A7_4qgWKIQlorXJ4YTsKfZi6ii5VygW1OkP-yL_7BS22PYCAcL3ot7NiaAmqK3Q3DENXxC0Y5r7WeUh7_m-8cmeuM-s"/>
+<!-- Wishlist Button -->
+<button aria-label="Add to Wishlist" class="absolute top-3 right-3 w-9 h-9 bg-canvas/90 backdrop-blur-sm border border-hairline flex items-center justify-center text-ink hover:text-terracotta transition-colors" onclick="toggleWishlist(this)">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+<div class="absolute bottom-0 inset-x-0 bg-canvas/95 border-t border-hairline p-2 translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex items-center justify-between">
+<span class="font-label-md text-label-md uppercase text-muted-slate pl-2">Quick Size:</span>
+<div class="flex gap-1">
+<button class="w-7 h-7 text-xs border border-hairline hover:border-ink hover:bg-ink hover:text-on-primary transition-colors" onclick="addToBag('Wide Leg Pleated Trouser', '28', 329000)">28</button>
+<button class="w-7 h-7 text-xs border border-hairline hover:border-ink hover:bg-ink hover:text-on-primary transition-colors" onclick="addToBag('Wide Leg Pleated Trouser', '30', 329000)">30</button>
+<button class="w-7 h-7 text-xs border border-hairline hover:border-ink hover:bg-ink hover:text-on-primary transition-colors" onclick="addToBag('Wide Leg Pleated Trouser', '32', 329000)">32</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<h3 class="font-title-md text-title-md text-ink group-hover:text-muted-slate transition-colors">Wide Leg Pleated Trouser</h3>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 bg-neutral-600 border border-hairline inline-block" title="Slate Grey"></span>
+<span class="w-3 h-3 bg-stone-300 border border-hairline inline-block" title="Ecru Sand"></span>
+</div>
+</div>
+<div class="flex items-baseline gap-space-sm">
+<span class="font-currency-price text-currency-price text-ink">Rp329.000</span>
+<span class="font-label-md text-label-md text-muted-slate">Regular Stock</span>
+</div>
+<span class="font-body-sm text-body-sm text-muted-slate">Deep front pleats with relaxed floor-skimming drape</span>
+</div>
+</div>
+<!-- Product 4: Minimalist Heavyweight Tee (4 cols - Out of stock state) -->
+<div class="product-item lg:col-span-4 flex flex-col group opacity-90" data-category="pria">
+<div class="relative w-full aspect-[3/4] bg-studio-gray overflow-hidden border border-hairline mb-space-sm">
+<img class="w-full h-full object-cover filter grayscale-[30%]" data-alt="Close up studio portrait of male model wearing plain heather gray heavyweight boxy crewneck t-shirt with clean seams, studio lighting, minimal editorial fashion lookbook" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlmMkiPryECBacIePI-s0HNphXkyj1S0fC9oJP3VwrJ0EAtjWXv5ODHluXOsIxAh4vKUA08XkvgNyo8nFc2SZ0LyxZFMGoqitGCVGr_B1QkqRpNNQf0UjpY7bwCNS2X98mGnMYQmuxfzrHX0mS8zf3Ems3Rs5iBCDugZ_XTybVScxonOPRZSnKI4ImyFURwa5ZuaBgYRynzmOTLxis1iq6m9QJID7n0PCt6oePU5A"/>
+<!-- Badges -->
+<div class="absolute top-3 left-3 flex flex-col gap-1 items-start">
+<span class="bg-neutral-800 text-on-primary px-2 py-0.5 font-label-md text-label-md uppercase tracking-widest">Habis / Sold Out</span>
+<span class="bg-terracotta text-on-primary px-2 py-0.5 font-label-md text-label-md uppercase tracking-widest">-16%</span>
+</div>
+<!-- Wishlist Button -->
+<button aria-label="Add to Wishlist" class="absolute top-3 right-3 w-9 h-9 bg-canvas/90 backdrop-blur-sm border border-hairline flex items-center justify-center text-ink hover:text-terracotta transition-colors" onclick="toggleWishlist(this)">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+<div class="absolute inset-0 bg-canvas/40 pointer-events-none flex items-center justify-center">
+<span class="bg-ink text-on-primary px-3 py-1 font-label-md text-label-md uppercase tracking-widest">Restock Segera</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<h3 class="font-title-md text-title-md text-muted-slate line-through">Minimalist Heavyweight Tee</h3>
+<div class="flex items-center gap-1.5 opacity-50">
+<span class="w-3 h-3 bg-neutral-300 border border-hairline inline-block"></span>
+<span class="w-3 h-3 bg-neutral-900 border border-hairline inline-block"></span>
+</div>
+</div>
+<div class="flex items-baseline gap-space-sm">
+<span class="font-currency-price text-currency-price text-muted-slate">Rp149.000</span>
+<span class="font-body-sm text-body-sm line-through text-muted-slate">Rp179.000</span>
+</div>
+<span class="font-body-sm text-body-sm text-muted-slate">240 GSM combed cotton. Notifikasi restock via WhatsApp.</span>
+</div>
+</div>
+<!-- Product 5: Cropped Wool Outer (4 cols) -->
+<div class="product-item lg:col-span-4 flex flex-col group" data-category="wanita">
+<div class="relative w-full aspect-[3/4] bg-studio-gray overflow-hidden border border-hairline mb-space-sm">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Studio fashion photo of female model wearing structured cropped dark navy wool blend outer jacket with high collar and silver metallic hardware, editorial aesthetic, plain light background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1QTfTyeTbWZ84FDvUqStX8YUwLasjHBzR8hUbvyH0dINKtaKAJe0S3hoERl3Za5QkDHcuTQrvd4zZUrUMjYFYN1ksrovKQtxTaa85AgvwDj0HspvBKfRHXuhonz9ecHwQHSFElYepAaL7i19FtAezPuAjrEAgmcSwR3pZZKnfFTns76k8LVLDhn7UEtPRe2Vda1qd2w3wkI2L7TsfhysOC7ZW3HD--f-cRmuiZ_Q"/>
+<!-- Badges -->
+<div class="absolute top-3 left-3 flex flex-col gap-1 items-start">
+<span class="bg-canvas text-ink px-2 py-0.5 font-label-md text-label-md uppercase tracking-widest border border-hairline">New Drop</span>
+</div>
+<!-- Wishlist Button -->
+<button aria-label="Add to Wishlist" class="absolute top-3 right-3 w-9 h-9 bg-canvas/90 backdrop-blur-sm border border-hairline flex items-center justify-center text-ink hover:text-terracotta transition-colors" onclick="toggleWishlist(this)">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+<div class="absolute bottom-0 inset-x-0 bg-canvas/95 border-t border-hairline p-2 translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex items-center justify-between">
+<span class="font-label-md text-label-md uppercase text-muted-slate pl-2">Quick Size:</span>
+<div class="flex gap-1">
+<button class="w-7 h-7 text-xs border border-hairline hover:border-ink hover:bg-ink hover:text-on-primary transition-colors" onclick="addToBag('Cropped Wool Outer', 'S', 599000)">S</button>
+<button class="w-7 h-7 text-xs border border-hairline hover:border-ink hover:bg-ink hover:text-on-primary transition-colors" onclick="addToBag('Cropped Wool Outer', 'M', 599000)">M</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<h3 class="font-title-md text-title-md text-ink group-hover:text-muted-slate transition-colors">Cropped Wool Outer</h3>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 bg-slate-900 border border-hairline inline-block" title="Deep Navy"></span>
+</div>
+</div>
+<div class="flex items-baseline gap-space-sm">
+<span class="font-currency-price text-currency-price text-ink">Rp599.000</span>
+<span class="font-label-md text-label-md text-terracotta">Limited Run 50 Pcs</span>
+</div>
+<span class="font-body-sm text-body-sm text-muted-slate">Clean boxy silhouette with concealed snap button closure</span>
+</div>
+</div>
+</div>
+<!-- Footer Action within Section -->
+<div class="mt-space-2xl pt-space-xl border-t border-hairline flex flex-col sm:flex-row items-center justify-between gap-space-md">
+<p class="font-body-md text-body-md text-muted-slate">Menampilkan 5 dari 108 kurasi pakaian aktif.</p>
+<button class="px-8 py-3 bg-canvas border border-ink text-ink font-label-lg text-label-lg uppercase tracking-widest hover:bg-ink hover:text-on-primary transition-colors">
+          Muat Semua Koleksi (108)
+        </button>
+</div>
+</div>
+</section>
+<!-- Section: Editorial Lookbook Collage & Brand Pillars -->
+<section class="w-full bg-studio-gray py-space-2xl border-b border-hairline">
+<div class="max-w-[1400px] mx-auto px-margin lg:px-margin-desktop">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-center">
+<!-- Left Editorial Visual Frame -->
+<div class="lg:col-span-7 relative">
+<div class="relative w-full aspect-[4/3] bg-surface-container overflow-hidden border border-hairline">
+<img class="w-full h-full object-cover" data-alt="A curated rack of neutral minimalist clothing items hanging against a warm concrete wall inside a high-fashion Tokyo boutique, natural architectural sunlight streaming through window, soft textures of wool, cotton, and linen garments" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMp9yHmivn9LsKLRhg6C0WPPcEiktuUYHYV_jD9uiXsmnopk_cboG91Js0cvqUZmoSnqIHFDrQH0WVwVwyAJXvvU_XRdXe1UsCSAplE8vGCkAqg84rR7K1VYkUZQL2tkjDvEQuMCSPCxopLYj0r6S-i_QOKcW3AQrPkjNKMqAne1GSv1fJYIIlhU6J0g_0ox6YmVTgy7zknTaavm1fg7yVKhOKHpwrCB0fzLr3ubo"/>
+<div class="absolute bottom-4 left-4 bg-canvas/95 p-space-md border border-hairline max-w-xs">
+<span class="font-label-md text-label-md uppercase tracking-widest text-terracotta block mb-1">Pilar Kualitas</span>
+<p class="font-headline-sm text-headline-sm uppercase text-ink">Bahan Berkualitas. Jahitan Presisi.</p>
+</div>
+</div>
+</div>
+<!-- Right Informational Specs & Accordion Values -->
+<div class="lg:col-span-5 flex flex-col justify-between">
+<div class="mb-space-lg">
+<span class="font-label-md text-label-md uppercase tracking-widest text-muted-slate block mb-1">Standardisasi Kami</span>
+<h2 class="font-headline-md text-headline-md uppercase text-ink mb-space-md">Kenapa Belanja di UrbanStore?</h2>
+<p class="font-body-md text-body-md text-secondary">
+              Kami memangkas katalog ribuan item menjadi pilihan terkurasi yang benar-benar siap pakai. Tidak ada barang generik atau bahan tipis yang mengecewakan.
+            </p>
+</div>
+<!-- Interactive Brand Accordion -->
+<div class="flex flex-col border-t border-hairline">
+<div class="py-space-md border-b border-hairline cursor-pointer" onclick="toggleAccordion('acc-1')">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-title-md uppercase text-ink">1. Transparansi Dimensi (CM)</span>
+<span class="font-title-md text-title-md text-ink" id="icon-acc-1">−</span>
+</div>
+<p class="font-body-sm text-body-sm text-muted-slate mt-space-xs block" id="body-acc-1">
+                Lebar dada, panjang baju, bukaan lengan, hingga panjang celana diukur manual. Tidak memakai perkiraan ukuran S/M/L universal yang membingungkan.
+              </p>
+</div>
+<div class="py-space-md border-b border-hairline cursor-pointer" onclick="toggleAccordion('acc-2')">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-title-md uppercase text-ink">2. Checkout Tanpa Wajib Buat Akun</span>
+<span class="font-title-md text-title-md text-ink" id="icon-acc-2">+</span>
+</div>
+<p class="font-body-sm text-body-sm text-muted-slate mt-space-xs hidden" id="body-acc-2">
+                Hanya butuh nama penerima, nomor WhatsApp untuk notifikasi resi, dan alamat pengiriman. Selesai dalam 3 langkah instan.
+              </p>
+</div>
+<div class="py-space-md border-b border-hairline cursor-pointer" onclick="toggleAccordion('acc-3')">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-title-md uppercase text-ink">3. Garansi Tukar Size 7 Hari</span>
+<span class="font-title-md text-title-md text-ink" id="icon-acc-3">+</span>
+</div>
+<p class="font-body-sm text-body-sm text-muted-slate mt-space-xs hidden" id="body-acc-3">
+                Bila potongan kurang pas di tubuh, tukar size dalam 7 hari kerja dengan ongkir pengembalian flat Rp10.000 via kurir pickup.
+              </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter Editorial Bar -->
+<section class="w-full bg-canvas py-space-xl border-b border-hairline">
+<div class="max-w-[1400px] mx-auto px-margin lg:px-margin-desktop flex flex-col lg:flex-row items-center justify-between gap-space-lg">
+<div class="max-w-md">
+<span class="font-label-md text-label-md uppercase tracking-widest text-terracotta block mb-1">Akses Drop Eksklusif</span>
+<h3 class="font-headline-md text-headline-md uppercase text-ink">Daftar Newsletter UrbanStore.</h3>
+<p class="font-body-sm text-body-sm text-muted-slate mt-1">Dapatkan early link tiap Jumat pukul 19:00 WIB sebelum rilisan rilis ke publik.</p>
+</div>
+<div class="w-full lg:w-auto flex flex-col sm:flex-row items-center gap-2 max-w-lg">
+<input class="w-full sm:w-80 px-4 py-3 bg-canvas border border-hairline font-body-md text-body-md text-ink focus:outline-none focus:border-ink transition-colors" placeholder="Masukkan alamat email kamu..." type="email"/>
+<button class="w-full sm:w-auto px-6 py-3 bg-ink text-on-primary font-label-lg text-label-lg uppercase tracking-widest hover:bg-neutral-800 transition-colors whitespace-nowrap">
+          Langganan ↗
+        </button>
+</div>
+</div>
+</section>
+<!-- Size Guide Visual Modal / Sliding Overlay -->
+<div class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-margin" id="size-modal">
+<div class="bg-canvas w-full max-w-2xl border border-hairline p-space-lg max-h-[921px] overflow-y-auto">
+<div class="flex items-center justify-between pb-space-sm border-b border-hairline mb-space-md">
+<div>
+<span class="font-label-md text-label-md uppercase tracking-widest text-terracotta">Size Confidence</span>
+<h3 class="font-headline-sm text-headline-sm uppercase text-ink">Panduan Ukuran Standar (CM)</h3>
+</div>
+<button class="p-1 text-ink hover:text-muted-slate" onclick="document.getElementById('size-modal').classList.add('hidden')">
+<span class="material-symbols-outlined text-[24px]">close</span>
+</button>
+</div>
+<p class="font-body-sm text-body-sm text-muted-slate mb-space-md">
+        Semua pengukuran diambil mendatar (flat measurement) di atas permukaan rata. Untuk lingkar dada penuh, kalikan dua lebar dada di bawah.
+      </p>
+<div class="overflow-x-auto mb-space-md">
+<table class="w-full text-left font-body-sm text-body-sm border border-hairline">
+<thead class="bg-studio-gray font-label-md text-label-md uppercase tracking-wider text-ink border-b border-hairline">
+<tr>
+<th class="p-2.5">Size Tag</th>
+<th class="p-2.5">Lebar Dada (CM)</th>
+<th class="p-2.5">Panjang Baju (CM)</th>
+<th class="p-2.5">Bahu (CM)</th>
+<th class="p-2.5">Tinggi Rekomendasi</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-hairline">
+<tr>
+<td class="p-2.5 font-bold">Small (S)</td>
+<td class="p-2.5">54</td>
+<td class="p-2.5">68</td>
+<td class="p-2.5">48</td>
+<td class="p-2.5 text-muted-slate">160 – 170 cm</td>
+</tr>
+<tr class="bg-surface-alt">
+<td class="p-2.5 font-bold">Medium (M)</td>
+<td class="p-2.5">57</td>
+<td class="p-2.5">71</td>
+<td class="p-2.5">50</td>
+<td class="p-2.5 text-muted-slate">168 – 178 cm</td>
+</tr>
+<tr>
+<td class="p-2.5 font-bold">Large (L)</td>
+<td class="p-2.5">60</td>
+<td class="p-2.5">74</td>
+<td class="p-2.5">52</td>
+<td class="p-2.5 text-muted-slate">175 – 185 cm</td>
+</tr>
+<tr class="bg-surface-alt">
+<td class="p-2.5 font-bold">X-Large (XL)</td>
+<td class="p-2.5">64</td>
+<td class="p-2.5">77</td>
+<td class="p-2.5">55</td>
+<td class="p-2.5 text-muted-slate">180 – 192 cm</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-space-sm bg-studio-gray border border-hairline flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-ink">Butuh bantuan rekomendasi size pribadi?</span>
+<a class="font-label-md text-label-md uppercase tracking-wider text-ink hover:underline" href="#">Chat Tim Stylist ↗</a>
+</div>
+</div>
+</div>
+<!-- Interactive Toast Notification -->
+<div class="fixed bottom-6 right-6 z-50 bg-ink text-on-primary px-5 py-3 border border-neutral-700 shadow-xl hidden flex items-center gap-3 transform transition-transform" id="cart-toast">
+<span class="material-symbols-outlined text-green-400 text-[20px]">check_circle</span>
+<span class="font-body-sm text-body-sm font-medium" id="cart-toast-msg">Item berhasil ditambahkan ke keranjang.</span>
+</div>
+<script>
+    // Tab Filter Logic
+    function filterProducts(category) {
+      const tabs = document.querySelectorAll('.filter-tab');
+      tabs.forEach(tab => {
+        tab.classList.remove('bg-ink', 'text-on-primary');
+        tab.classList.add('bg-transparent', 'text-secondary');
+      });
+
+      const activeTab = document.getElementById('tab-' + category);
+      if (activeTab) {
+        activeTab.classList.remove('bg-transparent', 'text-secondary');
+        activeTab.classList.add('bg-ink', 'text-on-primary');
+      }
+
+      const items = document.querySelectorAll('.product-item');
+      items.forEach(item => {
+        const itemCategory = item.getAttribute('data-category');
+        if (category === 'all' || itemCategory === category) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    // Wishlist Toggle
+    function toggleWishlist(btn) {
+      const icon = btn.querySelector('.material-symbols-outlined');
+      if (icon.textContent === 'favorite') {
+        icon.textContent = 'favorite';
+        icon.style.fontVariationSettings = icon.style.fontVariationSettings.includes("'FILL' 1") ? "'FILL' 0" : "'FILL' 1";
+        btn.classList.toggle('text-terracotta');
+      }
+    }
+
+    // Add to Cart Micro-interaction
+    function addToBag(title, size, price) {
+      const toast = document.getElementById('cart-toast');
+      const toastMsg = document.getElementById('cart-toast-msg');
+      toastMsg.innerText = `${title} (Size ${size}) dimasukkan ke tas belanja!`;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3000);
+
+      // Increment header bag count if found in shell
+      const cartBadges = document.querySelectorAll('header span.bg-ink');
+      cartBadges.forEach(badge => {
+        let count = parseInt(badge.textContent || '0');
+        badge.textContent = count + 1;
+      });
+    }
+
+    // Brand Accordion logic
+    function toggleAccordion(id) {
+      const body = document.getElementById('body-' + id);
+      const icon = document.getElementById('icon-' + id);
+      if (body.classList.contains('hidden')) {
+        body.classList.remove('hidden');
+        icon.textContent = '−';
+      } else {
+        body.classList.add('hidden');
+        icon.textContent = '+';
+      }
+    }
+  </script>
+</div></main><footer class="w-full border-t border-hairline bg-canvas"><div class="flex flex-col lg:flex-row w-full"><div class="w-full lg:w-1/2 p-margin lg:p-margin-desktop flex flex-col justify-between bg-canvas"><div class="grid grid-cols-2 md:grid-cols-3 gap-space-lg mb-space-2xl"><div><h4 class="font-label-lg text-label-lg uppercase text-ink mb-space-md tracking-wider">Quick Links</h4><ul class="flex flex-col gap-space-sm"><li data-active-classes="text-ink"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-ink transition-colors" data-path="home" href="#">Home</a></li><li data-active-classes="text-ink"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-ink transition-colors" data-path="pria" href="#">Pria</a></li><li data-active-classes="text-ink"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-ink transition-colors" data-path="wanita" href="#">Wanita</a></li><li data-active-classes="text-ink"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-ink transition-colors" data-path="lookbook" href="#">Lookbook</a></li></ul></div><div><h4 class="font-label-lg text-label-lg uppercase text-ink mb-space-md tracking-wider">Resources</h4><ul class="flex flex-col gap-space-sm"><li data-active-classes="text-ink"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-ink transition-colors" data-path="size-guide" href="#">Size Guide</a></li><li data-active-classes="text-ink"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-ink transition-colors" data-path="faq" href="#">FAQ</a></li><li data-active-classes="text-ink"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-ink transition-colors" data-path="shipping-and-returns" href="#">Shipping &amp; Returns</a></li><li data-active-classes="text-ink"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-ink transition-colors" data-path="order-status" href="#">Order Status</a></li></ul></div><div><h4 class="font-label-lg text-label-lg uppercase text-ink mb-space-md tracking-wider">Socials</h4><ul class="flex flex-col gap-space-sm"><li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-ink transition-colors flex items-center gap-1" href="#">Instagram <span class="material-symbols-outlined text-[14px]">arrow_outward</span></a></li><li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-ink transition-colors flex items-center gap-1" href="#">TikTok <span class="material-symbols-outlined text-[14px]">arrow_outward</span></a></li><li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-ink transition-colors flex items-center gap-1" href="#">Twitter/X <span class="material-symbols-outlined text-[14px]">arrow_outward</span></a></li></ul></div></div><div class="pt-space-lg border-t border-hairline flex flex-col md:flex-row items-start md:items-center justify-between gap-space-sm font-body-sm text-body-sm text-on-surface-variant"><div class="flex gap-space-md"><a class="hover:text-ink transition-colors" data-path="privacy-policy" href="#">Privacy Policy</a><span class="text-hairline">|</span><a class="hover:text-ink transition-colors" data-path="terms-and-conditions" href="#">Terms &amp; Conditions</a></div><p class="mt-space-xs md:mt-0">© 2026 UrbanStore. Hak cipta dilindungi.</p></div></div><div class="w-full lg:w-1/2 min-h-[420px] lg:min-h-full bg-studio-gray relative overflow-hidden border-t lg:border-t-0 lg:border-l border-hairline flex items-end p-margin lg:p-margin-desktop"><img alt="UrbanStore Editorial Collection" class="absolute inset-0 w-full h-full object-cover object-center grayscale contrast-125 hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLVqaCar976PapTyi46rHJqHWICCO-5QFWIznjs8iAboS4FthBB-h0svBAF2qirpJj7EZJvpJpTGm4G8FmFe8Ml5wSVr1AB85B4IOtoX97i9kaZYM4qGQmMruei4pWMseQor4jOuEZ5Svfv3TpIFm9NejjrD0lPhSLleGo4i0HOqOXEsKW5fHoFSLZZ-E-fP8eLuIRthpoejC3SqmdeYzHBitYggLHmAky9G84yWg"/><div class="relative z-10 bg-canvas/90 p-space-lg backdrop-blur-sm max-w-sm border border-hairline"><span class="font-label-md text-label-md uppercase tracking-widest text-terracotta mb-space-xs block">Issue Nº 24</span><p class="font-headline-sm text-headline-sm uppercase text-ink">Form, Shadow, and Movement</p></div></div></div></footer></body></html>

@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Bodoni Moda", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --color-canvas: #FFFFFF;
+  --color-ink: #111111;
+  --color-studio-gray: #EFEFEF;
+  --color-surface-alt: #F7F7F5;
+  --color-hairline: #E5E5E5;
+  --color-muted-slate: #6B6B66;
+  --color-terracotta: #C84B31;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    overscroll-behavior-y: none;
+    overflow-x: hidden;
+  }
+
+  /* Strict architectural sharp edges & accessible focus */
+  *:focus-visible {
+    outline: 1px solid #111111;
+    outline-offset: 2px;
+  }
+}
+
+.font-editorial {
+  font-family: var(--font-serif);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

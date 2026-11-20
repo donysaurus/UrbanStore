@@ -1,0 +1,6 @@
+{
+  "name": "UrbanStore",
+  "description": "Curated Fashion Editorial & E-Commerce — Pilihan outfit terkurasi dengan size jelas dalam cm dan checkout sat-set anti drama.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
