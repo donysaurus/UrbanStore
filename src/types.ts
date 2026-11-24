@@ -1,3 +1,5 @@
+export type UserRole = 'admin' | 'pelanggan';
+
 export type GenderCategory = 'pria' | 'wanita' | 'unisex';
 
 export type DepartmentCategory =
@@ -14,6 +16,8 @@ export interface ProductColor {
 }
 
 export interface SizeMeasurement {
+  id?: string;
+  sku?: string;
   size: string;
   stock: number;
   chestOrWaistCm: number;
@@ -47,6 +51,7 @@ export interface Product {
   homeFeatured?: boolean;
   homeSpan?: 'spotlight-5' | 'spotlight-7' | 'col-4';
   isSoldOut?: boolean;
+  isActive?: boolean;
 }
 
 export interface CartItem {
@@ -81,6 +86,7 @@ export interface ShippingMethod {
   name: string;
   eta: string;
   fee: number;
+  freeThreshold?: number | null;
   description: string;
 }
 
@@ -89,11 +95,21 @@ export interface PaymentMethod {
   name: string;
   subtitle: string;
   badge?: string;
+  maxOrderAmount?: number | null;
 }
 
+export type OrderStatus =
+  | 'Menunggu Pembayaran'
+  | 'Diproses Kurator'
+  | 'Dikirim'
+  | 'Selesai'
+  | 'Dibatalkan';
+
 export interface OrderRecord {
+  id?: string;
   orderNumber: string;
   createdAt: string;
+  userId?: string | null;
   customer: ShippingAddress;
   items: CartItem[];
   subtotal: number;
@@ -103,7 +119,30 @@ export interface OrderRecord {
   shippingFee: number;
   paymentMethod: PaymentMethod;
   total: number;
-  status: 'Menunggu Pembayaran' | 'Diproses Kurator';
+  status: OrderStatus;
+  trackingNumber?: string | null;
+}
+
+export interface UserProfile {
+  id: string;
+  email: string;
+  fullName: string;
+  phoneWhatsapp: string | null;
+  role: UserRole;
+  defaultAddress: ShippingAddress | null;
+  createdAt: string;
+}
+
+export interface PromoCodeRecord {
+  code: string;
+  discountType: 'percentage' | 'fixed';
+  discountValue: number;
+  minSubtotal: number;
+  maxDiscount: number | null;
+  usageLimit: number | null;
+  usedCount: number;
+  isActive: boolean;
+  expiresAt: string | null;
 }
 
 export type AppRoute =
@@ -114,4 +153,7 @@ export type AppRoute =
   | { page: 'cart' }
   | { page: 'checkout' }
   | { page: 'wishlist' }
-  | { page: 'order-success'; orderNumber: string };
+  | { page: 'order-success'; orderNumber: string }
+  | { page: 'login' }
+  | { page: 'account' }
+  | { page: 'admin' };

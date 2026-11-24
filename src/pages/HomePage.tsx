@@ -70,6 +70,7 @@ export const HomePage: React.FC = () => {
                 <EditorialImage
                   src={HERO_MEDIA.look01}
                   alt="Look Nº 01 Chore Overshirt"
+                  priority
                   className="group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
@@ -93,6 +94,7 @@ export const HomePage: React.FC = () => {
                 <EditorialImage
                   src={HERO_MEDIA.look07}
                   alt="Look Nº 07 Washed Slate Set"
+                  priority
                   className="group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
@@ -127,7 +129,7 @@ export const HomePage: React.FC = () => {
                 className="bg-studio-gray p-1.5 border border-hairline -rotate-2 text-left"
               >
                 <div className="aspect-[3/4] overflow-hidden">
-                  <EditorialImage src={HERO_MEDIA.look01} alt="Look Nº 01 Chore Overshirt" />
+                  <EditorialImage src={HERO_MEDIA.look01} alt="Look Nº 01 Chore Overshirt" priority />
                 </div>
                 <div className="pt-1.5 flex justify-between text-[10px] font-semibold uppercase text-ink">
                   <span>Look Nº 01</span>
@@ -140,7 +142,7 @@ export const HomePage: React.FC = () => {
                 className="bg-studio-gray p-1.5 border border-hairline rotate-2 text-left"
               >
                 <div className="aspect-[3/4] overflow-hidden">
-                  <EditorialImage src={HERO_MEDIA.look07} alt="Look Nº 07 Washed Slate Set" />
+                  <EditorialImage src={HERO_MEDIA.look07} alt="Look Nº 07 Washed Slate Set" priority />
                 </div>
                 <div className="pt-1.5 flex justify-between text-[10px] font-semibold uppercase text-ink">
                   <span>Look Nº 07</span>

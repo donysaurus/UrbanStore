@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowRight, Check, Heart, Minus, Plus, Ruler, Star } from 'lucide-react';
+import { useParams } from 'react-router-dom';
+import { ArrowRight, Check, Heart, Minus, Plus, Ruler, Share2, Star } from 'lucide-react';
 import { EditorialImage } from '../components/EditorialImage';
 import { ProductCard } from '../components/ProductCard';
 import { useStore } from '../context/StoreContext';
@@ -7,15 +8,16 @@ import { PRODUCTS } from '../data/products';
 import { formatIDR } from '../utils/format';
 
 interface ProductDetailPageProps {
-  slug: string;
+  slug?: string;
 }
 
-export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ slug }) => {
+export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ slug: propSlug }) => {
+  const { slug: paramSlug } = useParams<{ slug: string }>();
+  const resolvedSlug = propSlug ?? paramSlug ?? '';
   const { navigate, addToCart, wishlistIds, toggleWishlist, setSizeGuideOpen, showToast } =
     useStore();
 
-  const product = PRODUCTS.find((p) => p.slug === slug) || PRODUCTS[0];
-  const isWishlisted = wishlistIds.includes(product.id);
+  const product = PRODUCTS.find((p) => p.slug === resolvedSlug);
 
   const [activeImageIdx, setActiveImageIdx] = useState(0);
   const [selectedColorIdx, setSelectedColorIdx] = useState(0);
@@ -31,13 +33,46 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ slug }) =>
     setQuantity(1);
     setSizeError(false);
     setOpenAccordion(0);
-  }, [product.id]);
+  }, [product?.id]);
 
+  if (!product) {
+    return (
+      <div className="max-w-xl mx-auto px-4 py-24 text-center">
+        <span className="text-[11px] font-semibold uppercase tracking-widest text-terracotta block mb-2">
+          404 · Outfit Tidak Ditemukan
+        </span>
+        <h1 className="font-editorial text-3xl sm:text-4xl uppercase text-ink mb-3">
+          Produk Nggak Ketemu Nih.
+        </h1>
+        <p className="text-[14px] text-muted-slate mb-8 leading-relaxed">
+          Link produk yang lo buka mungkin salah ketik atau koleksinya udah ditarik dari arsip drop.
+        </p>
+        <button
+          type="button"
+          onClick={() => navigate({ page: 'catalog', category: 'all' })}
+          className="px-8 py-3.5 bg-ink text-canvas text-[12px] font-semibold uppercase tracking-widest hover:bg-neutral-800 transition-colors cursor-pointer"
+        >
+          Kepoin Semua Koleksi ↗
+        </button>
+      </div>
+    );
+  }
+
+  const isWishlisted = wishlistIds.includes(product.id);
   const activeVariant = product.variants.find((v) => v.size === selectedSize);
   const selectedColor = product.colors[selectedColorIdx] || product.colors[0];
   const isAllSoldOut = product.isSoldOut || product.variants.every((v) => v.stock <= 0);
 
-  const maxStock = activeVariant ? activeVariant.stock : 10;
+  const maxStock = activeVariant ? activeVariant.stock : 1;
+
+  const handleCopyShareLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      showToast('Link outfit udah disalin! Tinggal share ke temen lo.', 'success');
+    } catch {
+      showToast('Gagal menyalin link. Coba salin manual dari address bar ya.', 'error');
+    }
+  };
 
   const handleAdd = (goCheckout = false) => {
     if (isAllSoldOut) return;
@@ -70,7 +105,19 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ slug }) =>
     }
   };
 
-  const relatedProducts = PRODUCTS.filter((p) => p.id !== product.id).slice(0, 4);
+  const relatedProducts = [
+    ...PRODUCTS.filter(
+      (p) =>
+        p.id !== product.id &&
+        (p.category === product.category || p.department === product.department)
+    ),
+    ...PRODUCTS.filter(
+      (p) =>
+        p.id !== product.id &&
+        p.category !== product.category &&
+        p.department !== product.department
+    ),
+  ].slice(0, 4);
 
   return (
     <div className="w-full bg-canvas">
@@ -112,6 +159,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ slug }) =>
               <EditorialImage
                 src={product.images[activeImageIdx] || product.images[0]}
                 alt={product.name}
+                priority
                 className={isAllSoldOut ? 'grayscale-[30%]' : ''}
               />
               {isAllSoldOut ? (
@@ -325,7 +373,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ slug }) =>
                   <button
                     type="button"
                     aria-label="Tambah kuantitas"
-                    disabled={quantity >= maxStock || isAllSoldOut}
+                    disabled={quantity >= maxStock || isAllSoldOut || !activeVariant}
                     onClick={() => setQuantity((q) => Math.min(maxStock, q + 1))}
                     className="w-11 h-full flex items-center justify-center text-ink hover:bg-studio-gray disabled:opacity-35 cursor-pointer"
                   >
@@ -344,6 +392,16 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ slug }) =>
                 >
                   <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-terracotta' : ''}`} />
                   <span>{isWishlisted ? 'Tersimpan' : 'Simpan'}</span>
+                </button>
+
+                <button
+                  type="button"
+                  aria-label="Salin Link Outfit"
+                  onClick={handleCopyShareLink}
+                  className="h-12 px-4 border border-hairline text-ink hover:border-ink flex items-center gap-2 text-[12px] font-semibold uppercase tracking-wider transition-colors cursor-pointer"
+                >
+                  <Share2 className="w-4 h-4" />
+                  <span className="hidden sm:inline">Salin Link</span>
                 </button>
               </div>
 

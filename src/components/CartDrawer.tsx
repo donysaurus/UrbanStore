@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ArrowRight, Minus, Plus, ShoppingBag, Trash2, X } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 import { formatIDR } from '../utils/format';
@@ -17,6 +17,15 @@ export const CartDrawer: React.FC = () => {
     navigate,
   } = useStore();
 
+  useEffect(() => {
+    if (!isCartDrawerOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setCartDrawerOpen(false);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [isCartDrawerOpen, setCartDrawerOpen]);
+
   if (!isCartDrawerOpen) return null;
 
   const freeShippingThreshold = 499000;
@@ -24,7 +33,12 @@ export const CartDrawer: React.FC = () => {
   const netSubtotal = Math.max(0, subtotal - discountAmount);
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label="Keranjang Belanja"
+      className="fixed inset-0 z-50 flex justify-end"
+    >
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-ink/55 transition-opacity"

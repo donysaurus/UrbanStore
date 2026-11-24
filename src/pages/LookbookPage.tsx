@@ -6,44 +6,46 @@ import { HERO_MEDIA, PRODUCTS } from '../data/products';
 import { formatIDR } from '../utils/format';
 
 export const LookbookPage: React.FC = () => {
-  const { navigate } = useStore();
+  const { navigate, products } = useStore();
+  const findProd = (slug: string, fallbackIdx: number) =>
+    products.find((p) => p.slug === slug) || PRODUCTS[fallbackIdx];
 
   const lookPairs = [
     {
       issue: 'LOOK N° 01 — MONOLITH CHORE',
       caption: 'Struktur twill 290 GSM berpadu siluet boxy yang tajam di atas kemeja kerah putih.',
       image: HERO_MEDIA.look01,
-      product: PRODUCTS[0],
+      product: findProd('oversized-cotton-work-shirt', 0),
     },
     {
       issue: 'LOOK N° 02 — TROPICAL TAILORING',
       caption: 'Blazer potongan rileks tanpa furing berat. Effortless buat kerja maupun galeri.',
-      image: PRODUCTS[1].images[0],
-      product: PRODUCTS[1],
+      image: findProd('relaxed-tailored-blazer', 1).images[0],
+      product: findProd('relaxed-tailored-blazer', 1),
     },
     {
       issue: 'LOOK N° 07 — WASHED SLATE SET',
       caption: 'Proporsi wide-leg pleated dengan drape lurus menyentuh upper sneakers.',
       image: HERO_MEDIA.look07,
-      product: PRODUCTS[2],
+      product: findProd('wide-leg-pleated-trouser', 2),
     },
     {
       issue: 'LOOK N° 12 — INDIGO WORKWEAR',
       caption: 'Denim 13.5 oz stone-wash yang terasa langsung nyaman dipakai dari hari pertama.',
-      image: PRODUCTS[8].images[0],
-      product: PRODUCTS[8],
+      image: findProd('washed-denim-overshirt', 8).images[0],
+      product: findProd('washed-denim-overshirt', 8),
     },
     {
       issue: 'LOOK N° 15 — SOFT FRENCH TERRY',
       caption: 'Katun 420 GSM dengan drop-shoulder yang menjaga bentuk bahu tetap clean.',
-      image: PRODUCTS[10].images[0],
-      product: PRODUCTS[10],
+      image: findProd('heavy-terry-crewneck', 10).images[0],
+      product: findProd('heavy-terry-crewneck', 10),
     },
     {
       issue: 'LOOK N° 22 — DOUBLE KNEE UTILITY',
       caption: 'Kanvas 12 oz garment-washed dengan detail jahitan arsip workwear.',
-      image: PRODUCTS[11].images[0],
-      product: PRODUCTS[11],
+      image: findProd('washed-slate-work-pants', 11).images[0],
+      product: findProd('washed-slate-work-pants', 11),
     },
   ];
 

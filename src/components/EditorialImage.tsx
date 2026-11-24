@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Shirt } from 'lucide-react';
 
 interface EditorialImageProps {
@@ -6,6 +6,7 @@ interface EditorialImageProps {
   alt: string;
   className?: string;
   fallbackLabel?: string;
+  priority?: boolean;
 }
 
 export const EditorialImage: React.FC<EditorialImageProps> = ({
@@ -13,8 +14,13 @@ export const EditorialImage: React.FC<EditorialImageProps> = ({
   alt,
   className = '',
   fallbackLabel,
+  priority = false,
 }) => {
   const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    setHasError(false);
+  }, [src]);
 
   if (hasError || !src) {
     return (
@@ -33,6 +39,8 @@ export const EditorialImage: React.FC<EditorialImageProps> = ({
     <img
       src={src}
       alt={alt}
+      loading={priority ? 'eager' : 'lazy'}
+      decoding="async"
       referrerPolicy="no-referrer"
       onError={() => setHasError(true)}
       className={`w-full h-full object-cover ${className}`}

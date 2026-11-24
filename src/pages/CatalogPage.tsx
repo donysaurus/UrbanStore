@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import {
   ArrowUpRight,
   ChevronDown,
@@ -16,6 +17,17 @@ import { SilhouetteFit } from '../types';
 type QuickCategory = 'all' | 'pria' | 'wanita' | 'outerwear' | 'tops' | 'pants';
 type SortOption = 'newest' | 'popular' | 'price-asc' | 'price-desc';
 type PriceRange = 'all' | 'under250' | '250to500' | 'over500';
+
+function parseCategoryParam(raw: string | null, fallback: QuickCategory): QuickCategory {
+  if (!raw) return fallback;
+  const lower = raw.toLowerCase();
+  if (lower === 'men' || lower === 'pria') return 'pria';
+  if (lower === 'women' || lower === 'wanita') return 'wanita';
+  if (lower === 'outerwear' || lower === 'tops' || lower === 'pants' || lower === 'all') {
+    return lower;
+  }
+  return fallback;
+}
 
 const COLOR_SWATCHES = [
   { label: 'Hitam', hex: '#111111', keywords: ['black', 'obsidian', 'onyx'] },
@@ -36,8 +48,13 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({
   initialSearch = '',
 }) => {
   const { navigate, setSizeGuideOpen } = useStore();
-  const [quickCat, setQuickCat] = useState<QuickCategory>(initialCategory);
-  const [searchTerm, setSearchTerm] = useState(initialSearch);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const urlCat = parseCategoryParam(searchParams.get('category'), initialCategory);
+  const urlSearch = searchParams.get('search') ?? initialSearch;
+
+  const [quickCat, setQuickCat] = useState<QuickCategory>(urlCat);
+  const [searchTerm, setSearchTerm] = useState(urlSearch);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [priceRange, setPriceRange] = useState<PriceRange>('all');
@@ -48,12 +65,29 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({
   const [gridCols, setGridCols] = useState<3 | 4>(4);
 
   useEffect(() => {
-    setQuickCat(initialCategory);
-  }, [initialCategory]);
+    setQuickCat(urlCat);
+  }, [urlCat]);
 
   useEffect(() => {
-    setSearchTerm(initialSearch);
-  }, [initialSearch]);
+    setSearchTerm(urlSearch);
+  }, [urlSearch]);
+
+  const syncUrlParams = (nextCat: QuickCategory, nextSearch: string) => {
+    const params = new URLSearchParams();
+    if (nextCat !== 'all') params.set('category', nextCat);
+    if (nextSearch.trim()) params.set('search', nextSearch.trim());
+    setSearchParams(params, { replace: true });
+  };
+
+  const handleSelectQuickCat = (cat: QuickCategory) => {
+    setQuickCat(cat);
+    syncUrlParams(cat, searchTerm);
+  };
+
+  const handleClearSearch = () => {
+    setSearchTerm('');
+    syncUrlParams(quickCat, '');
+  };
 
   const filteredProducts = useMemo(() => {
     let list = [...PRODUCTS];
@@ -160,6 +194,7 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({
     setSelectedColor(null);
     setSelectedFit(null);
     setOnlyInStock(false);
+    syncUrlParams('all', '');
   };
 
   const categoryTitle =
@@ -230,7 +265,7 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({
               <button
                 key={cat.id}
                 type="button"
-                onClick={() => setQuickCat(cat.id)}
+                onClick={() => handleSelectQuickCat(cat.id)}
                 className={`px-4 py-2.5 text-[11px] font-semibold uppercase tracking-widest whitespace-nowrap transition-colors cursor-pointer ${
                   quickCat === cat.id
                     ? 'bg-ink text-canvas'
@@ -274,7 +309,7 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({
                 <button
                   type="button"
                   aria-label="Hapus pencarian"
-                  onClick={() => setSearchTerm('')}
+                  onClick={handleClearSearch}
                   className="hover:text-terracotta cursor-pointer"
                 >
                   <X className="w-3.5 h-3.5" />

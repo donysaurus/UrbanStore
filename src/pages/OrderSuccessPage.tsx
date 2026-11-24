@@ -1,16 +1,30 @@
 import React from 'react';
-import { ArrowUpRight, CheckCircle2, PackageCheck } from 'lucide-react';
+import { useParams } from 'react-router-dom';
+import { ArrowUpRight, CheckCircle2, Copy, PackageCheck } from 'lucide-react';
 import { EditorialImage } from '../components/EditorialImage';
 import { useStore } from '../context/StoreContext';
 import { formatIDR } from '../utils/format';
 
 interface OrderSuccessPageProps {
-  orderNumber: string;
+  orderNumber?: string;
 }
 
-export const OrderSuccessPage: React.FC<OrderSuccessPageProps> = ({ orderNumber }) => {
-  const { getOrder, navigate } = useStore();
-  const order = getOrder(orderNumber);
+export const OrderSuccessPage: React.FC<OrderSuccessPageProps> = ({
+  orderNumber: propOrderNumber,
+}) => {
+  const { orderNumber: paramOrderNumber } = useParams<{ orderNumber: string }>();
+  const resolvedOrderNumber = propOrderNumber ?? paramOrderNumber ?? '';
+  const { getOrder, navigate, showToast } = useStore();
+  const order = getOrder(resolvedOrderNumber);
+
+  const handleCopyText = async (value: string, label: string) => {
+    try {
+      await navigator.clipboard.writeText(value);
+      showToast(`${label} berhasil disalin!`, 'success');
+    } catch {
+      showToast(`Gagal menyalin ${label}.`, 'error');
+    }
+  };
 
   if (!order) {
     return (
@@ -19,7 +33,7 @@ export const OrderSuccessPage: React.FC<OrderSuccessPageProps> = ({ orderNumber 
           Order Nggak Ditemukan.
         </h1>
         <p className="text-[14px] text-muted-slate mb-6">
-          Pastikan lo mengakses halaman konfirmasi dari checkout yang baru selesai ya.
+          Pastikan lo mengakses halaman konfirmasi dari browser yang sama saat checkout ya.
         </p>
         <button
           type="button"
@@ -32,22 +46,35 @@ export const OrderSuccessPage: React.FC<OrderSuccessPageProps> = ({ orderNumber 
     );
   }
 
+  const demoVaNumber = `8801${order.orderNumber.replace(/[^0-9]/g, '').slice(-8).padEnd(8, '0')}`;
+
   return (
     <div className="w-full bg-canvas py-12 lg:py-16">
       <div className="max-w-3xl mx-auto px-4 lg:px-8">
         <div className="border border-hairline bg-canvas p-6 sm:p-10">
           {/* Status Banner */}
           <div className="border-b border-hairline pb-8 mb-8">
-            <div className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-widest text-terracotta mb-3">
-              <CheckCircle2 className="w-4 h-4" />
-              <span>Order Confirmed · #{order.orderNumber}</span>
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <div className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-widest text-terracotta">
+                <CheckCircle2 className="w-4 h-4" />
+                <span>Order Confirmed · #{order.orderNumber}</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => handleCopyText(order.orderNumber, 'Nomor Order')}
+                className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-ink border border-hairline px-2.5 py-1 hover:border-ink cursor-pointer"
+              >
+                <Copy className="w-3 h-3" />
+                <span>Salin No. Order</span>
+              </button>
             </div>
             <h1 className="font-editorial text-3xl sm:text-4xl uppercase text-ink leading-tight">
               Orderan Lo Udah Masuk!
             </h1>
             <p className="text-[14px] text-muted-slate mt-2 leading-relaxed">
-              Tinggal duduk manis, paket kece segera meluncur. Update resi dan status pengiriman
-              bakal dikirim ke WhatsApp{' '}
+              Simpan nomor pesanan{' '}
+              <strong className="text-ink tabular-nums">#{order.orderNumber}</strong> di atas.
+              Detail pengiriman tercatat untuk WhatsApp{' '}
               <strong className="text-ink">{order.customer.whatsapp}</strong> dan email{' '}
               <strong className="text-ink">{order.customer.email}</strong>.
             </p>
@@ -55,17 +82,44 @@ export const OrderSuccessPage: React.FC<OrderSuccessPageProps> = ({ orderNumber 
 
           {/* Payment / Shipping Details */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8 pb-8 border-b border-hairline text-[13px]">
-            <div className="bg-surface-alt border border-hairline p-4 space-y-1">
+            <div className="bg-surface-alt border border-hairline p-4 space-y-2">
               <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-slate block">
                 Status &amp; Pembayaran
               </span>
               <p className="font-semibold text-ink">{order.paymentMethod.name}</p>
               <p className="text-muted-slate">Status: {order.status}</p>
-              <p className="text-[12px] text-terracotta font-medium pt-1">
-                {order.paymentMethod.id === 'cod'
-                  ? 'Siapkan uang pas saat kurir tiba ya.'
-                  : 'Instruksi QRIS / Virtual Account udah dikirim ke email lo.'}
-              </p>
+              {order.paymentMethod.id === 'cod' ? (
+                <p className="text-[12px] text-terracotta font-medium pt-1">
+                  Siapkan uang pas sejumlah {formatIDR(order.total)} saat kurir tiba ya.
+                </p>
+              ) : (
+                <div className="pt-2 border-t border-hairline space-y-1.5">
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-slate block">
+                    Referensi Bayar (Simulasi Frontend):
+                  </span>
+                  <div className="flex items-center justify-between gap-2 bg-canvas border border-hairline px-2.5 py-1.5">
+                    <span className="font-semibold text-ink tabular-nums text-[12px]">
+                      {order.paymentMethod.id === 'va' ? `VA ${demoVaNumber}` : `QRIS-${order.orderNumber}`}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        handleCopyText(
+                          order.paymentMethod.id === 'va' ? demoVaNumber : order.orderNumber,
+                          'Kode Pembayaran'
+                        )
+                      }
+                      className="text-[11px] font-semibold uppercase text-terracotta hover:underline cursor-pointer"
+                    >
+                      Salin
+                    </button>
+                  </div>
+                  <p className="text-[11px] text-muted-slate">
+                    Catatan: Mode prototipe lokal — gateway pembayaran riil &amp; pengiriman email
+                    otomatis akan aktif setelah integrasi backend.
+                  </p>
+                </div>
+              )}
             </div>
 
             <div className="bg-surface-alt border border-hairline p-4 space-y-1">
@@ -74,9 +128,14 @@ export const OrderSuccessPage: React.FC<OrderSuccessPageProps> = ({ orderNumber 
               </span>
               <p className="font-semibold text-ink">{order.customer.fullName}</p>
               <p className="text-muted-slate">
-                {order.customer.address}, {order.customer.district}, {order.customer.city}{' '}
-                {order.customer.postalCode}
+                {order.customer.address}, Kec. {order.customer.district}, {order.customer.city},{' '}
+                {order.customer.province} {order.customer.postalCode}
               </p>
+              {order.customer.notes && (
+                <p className="text-[12px] text-muted-slate italic">
+                  Catatan: &ldquo;{order.customer.notes}&rdquo;
+                </p>
+              )}
               <p className="text-ink font-medium pt-1 inline-flex items-center gap-1.5">
                 <PackageCheck className="w-3.5 h-3.5" />
                 {order.shippingMethod.name}

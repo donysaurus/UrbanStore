@@ -1,30 +1,37 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, Search, X } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
-import { PRODUCTS } from '../data/products';
 import { formatIDR } from '../utils/format';
 import { EditorialImage } from './EditorialImage';
 
 const QUICK_KEYWORDS = ['Oversized', 'Blazer', 'Trouser', 'Boxy', 'Denim', 'Cropped'];
 
 export const SearchModal: React.FC = () => {
-  const { isSearchOpen, setSearchOpen, navigate } = useStore();
+  const { isSearchOpen, setSearchOpen, navigate, products } = useStore();
   const [query, setQuery] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (isSearchOpen) {
-      setTimeout(() => inputRef.current?.focus(), 40);
-    } else {
+    if (!isSearchOpen) {
       setQuery('');
+      return;
     }
-  }, [isSearchOpen]);
+    const timer = window.setTimeout(() => inputRef.current?.focus(), 40);
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSearchOpen(false);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [isSearchOpen, setSearchOpen]);
 
   if (!isSearchOpen) return null;
 
   const trimmed = query.trim().toLowerCase();
   const matches = trimmed
-    ? PRODUCTS.filter(
+    ? products.filter(
         (p) =>
           p.name.toLowerCase().includes(trimmed) ||
           p.shortSpec.toLowerCase().includes(trimmed) ||
@@ -32,7 +39,7 @@ export const SearchModal: React.FC = () => {
           p.category.toLowerCase().includes(trimmed) ||
           p.fitType.toLowerCase().includes(trimmed)
       )
-    : PRODUCTS.slice(0, 4);
+    : products.slice(0, 4);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,7 +47,12 @@ export const SearchModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-ink/55 backdrop-blur-[2px] flex flex-col">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label="Pencarian Produk"
+      className="fixed inset-0 z-50 bg-ink/55 backdrop-blur-[2px] flex flex-col"
+    >
       <div className="bg-canvas border-b border-hairline w-full max-h-[85vh] overflow-y-auto">
         <div className="max-w-[1200px] mx-auto px-4 lg:px-12 py-6">
           {/* Search Input Row */}

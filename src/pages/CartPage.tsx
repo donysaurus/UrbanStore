@@ -3,11 +3,11 @@ import { ArrowRight, Minus, Plus, ShoppingBag, Tag, Trash2, X } from 'lucide-rea
 import { EditorialImage } from '../components/EditorialImage';
 import { ProductCard } from '../components/ProductCard';
 import { useStore } from '../context/StoreContext';
-import { PRODUCTS } from '../data/products';
 import { formatIDR } from '../utils/format';
 
 export const CartPage: React.FC = () => {
   const {
+    products,
     cart,
     cartCount,
     subtotal,
@@ -23,15 +23,15 @@ export const CartPage: React.FC = () => {
   const [promoInput, setPromoInput] = useState('');
   const [promoFeedback, setPromoFeedback] = useState<{ ok: boolean; text: string } | null>(null);
 
-  const handlePromoSubmit = (e: React.FormEvent) => {
+  const handlePromoSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const res = applyPromoCode(promoInput);
+    const res = await applyPromoCode(promoInput);
     setPromoFeedback({ ok: res.ok, text: res.message });
     if (res.ok) setPromoInput('');
   };
 
   const netTotal = Math.max(0, subtotal - discountAmount);
-  const recommendations = PRODUCTS.filter(
+  const recommendations = products.filter(
     (p) => !p.isSoldOut && !cart.some((c) => c.productId === p.id)
   ).slice(0, 4);
 

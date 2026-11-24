@@ -2,11 +2,10 @@ import React from 'react';
 import { Heart } from 'lucide-react';
 import { ProductCard } from '../components/ProductCard';
 import { useStore } from '../context/StoreContext';
-import { PRODUCTS } from '../data/products';
 
 export const WishlistPage: React.FC = () => {
-  const { wishlistIds, navigate } = useStore();
-  const savedProducts = PRODUCTS.filter((p) => wishlistIds.includes(p.id));
+  const { wishlistIds, navigate, products } = useStore();
+  const savedProducts = products.filter((p) => wishlistIds.includes(p.id));
 
   return (
     <div className="w-full bg-canvas">

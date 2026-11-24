@@ -6,6 +6,47 @@ import { PAYMENT_METHODS, SHIPPING_METHODS } from '../data/products';
 import { OrderRecord, ShippingAddress } from '../types';
 import { formatIDR } from '../utils/format';
 
+const INDONESIAN_PROVINCES = [
+  'Aceh',
+  'Sumatera Utara',
+  'Sumatera Barat',
+  'Riau',
+  'Kepulauan Riau',
+  'Jambi',
+  'Sumatera Selatan',
+  'Kepulauan Bangka Belitung',
+  'Bengkulu',
+  'Lampung',
+  'DKI Jakarta',
+  'Jawa Barat',
+  'Banten',
+  'Jawa Tengah',
+  'DI Yogyakarta',
+  'Jawa Timur',
+  'Bali',
+  'Nusa Tenggara Barat',
+  'Nusa Tenggara Timur',
+  'Kalimantan Barat',
+  'Kalimantan Tengah',
+  'Kalimantan Selatan',
+  'Kalimantan Timur',
+  'Kalimantan Utara',
+  'Sulawesi Utara',
+  'Gorontalo',
+  'Sulawesi Tengah',
+  'Sulawesi Barat',
+  'Sulawesi Selatan',
+  'Sulawesi Tenggara',
+  'Maluku',
+  'Maluku Utara',
+  'Papua Barat',
+  'Papua Barat Daya',
+  'Papua',
+  'Papua Tengah',
+  'Papua Pegunungan',
+  'Papua Selatan',
+];
+
 export const CheckoutPage: React.FC = () => {
   const {
     cart,
@@ -81,8 +122,8 @@ export const CheckoutPage: React.FC = () => {
     }
     if (!address.city.trim()) nextErrors.city = 'Kota / Kabupaten wajib diisi.';
     if (!address.district.trim()) nextErrors.district = 'Kecamatan wajib diisi.';
-    if (!address.postalCode.trim() || address.postalCode.trim().length < 5) {
-      nextErrors.postalCode = 'Kode pos 5 digit wajib diisi.';
+    if (!address.postalCode.trim() || !/^\d{5}$/.test(address.postalCode.trim())) {
+      nextErrors.postalCode = 'Kode pos harus 5 digit angka yang valid.';
     }
 
     setErrors(nextErrors);
@@ -103,7 +144,8 @@ export const CheckoutPage: React.FC = () => {
     if (isSubmitting) return;
     setIsSubmitting(true);
 
-    const orderNumber = `US-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
+    const randomSuffix = `${Date.now().toString(36).toUpperCase().slice(-4)}${Math.floor(10 + Math.random() * 90)}`;
+    const orderNumber = `US-${new Date().getFullYear()}-${randomSuffix}`;
     const newOrder: OrderRecord = {
       orderNumber,
       createdAt: new Date().toISOString(),
@@ -265,14 +307,11 @@ export const CheckoutPage: React.FC = () => {
                       onChange={(e) => setAddress({ ...address, province: e.target.value })}
                       className="w-full h-11 px-3.5 bg-canvas border border-hairline text-[14px] text-ink focus:outline-none focus:border-ink"
                     >
-                      <option>DKI Jakarta</option>
-                      <option>Jawa Barat</option>
-                      <option>Banten</option>
-                      <option>Jawa Tengah</option>
-                      <option>DI Yogyakarta</option>
-                      <option>Jawa Timur</option>
-                      <option>Bali</option>
-                      <option>Sumatera Utara</option>
+                      {INDONESIAN_PROVINCES.map((prov) => (
+                        <option key={prov} value={prov}>
+                          {prov}
+                        </option>
+                      ))}
                     </select>
                   </div>
 
@@ -326,6 +365,19 @@ export const CheckoutPage: React.FC = () => {
                       <p className="text-[12px] text-terracotta mt-1">{errors.postalCode}</p>
                     )}
                   </div>
+                </div>
+
+                <div>
+                  <label className="text-[11px] font-semibold uppercase tracking-widest text-ink block mb-1.5">
+                    Catatan untuk Kurir (Opsional)
+                  </label>
+                  <input
+                    type="text"
+                    value={address.notes ?? ''}
+                    onChange={(e) => setAddress({ ...address, notes: e.target.value })}
+                    placeholder="Contoh: Titip di pos satpam atau pagar hitam sebelah kafe..."
+                    className="w-full h-11 px-3.5 bg-canvas border border-hairline text-[14px] text-ink focus:outline-none focus:border-ink"
+                  />
                 </div>
 
                 <div className="pt-4 flex items-center justify-between gap-4">
@@ -492,6 +544,11 @@ export const CheckoutPage: React.FC = () => {
                         {address.province} {address.postalCode}
                       </p>
                       <p className="text-muted-slate mt-0.5">{address.email}</p>
+                      {address.notes?.trim() && (
+                        <p className="text-[12px] text-muted-slate italic mt-1">
+                          Catatan: &ldquo;{address.notes.trim()}&rdquo;
+                        </p>
+                      )}
                     </div>
                     <button
                       type="button"

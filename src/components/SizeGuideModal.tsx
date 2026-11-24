@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Ruler, X } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 
@@ -6,11 +6,29 @@ export const SizeGuideModal: React.FC = () => {
   const { isSizeGuideOpen, setSizeGuideOpen } = useStore();
   const [tab, setTab] = useState<'tops' | 'bottoms'>('tops');
 
+  useEffect(() => {
+    if (!isSizeGuideOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSizeGuideOpen(false);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [isSizeGuideOpen, setSizeGuideOpen]);
+
   if (!isSizeGuideOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-ink/60 backdrop-blur-[2px] flex items-center justify-center p-4">
-      <div className="bg-canvas w-full max-w-2xl border border-hairline max-h-[90vh] overflow-y-auto">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label="Panduan Ukuran Visual"
+      onClick={() => setSizeGuideOpen(false)}
+      className="fixed inset-0 z-50 bg-ink/60 backdrop-blur-[2px] flex items-center justify-center p-4"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="bg-canvas w-full max-w-2xl border border-hairline max-h-[90vh] overflow-y-auto"
+      >
         {/* Header */}
         <div className="px-6 py-5 border-b border-hairline flex items-center justify-between sticky top-0 bg-canvas z-10">
           <div>
