@@ -1,16 +1,25 @@
 -- ============================================================================
 -- URBANSTORE — SUPABASE POSTGRESQL SCHEMA, RLS, TRIGGERS & ATOMIC RPCs
--- Role Support: 'admin' & 'pelanggan' (Email + Password Auth)
+-- Role Support: 'admin' & 'customer' (Email + Password Auth)
 -- Execute this script in Supabase Dashboard -> SQL Editor
 -- ============================================================================
 
 -- 1. EXTENSIONS
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
--- 2. CUSTOM ENUM TYPES (Idempotent creation)
+-- 2. CUSTOM ENUM TYPES (Idempotent creation + safe migration from 'pelanggan' -> 'customer')
 DO $$ BEGIN
-  CREATE TYPE public.user_role AS ENUM ('admin', 'pelanggan');
-EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+  CREATE TYPE public.user_role AS ENUM ('admin', 'customer');
+EXCEPTION WHEN duplicate_object THEN
+  IF EXISTS (
+    SELECT 1 FROM pg_enum e
+    JOIN pg_type t ON e.enumtypid = t.oid
+    JOIN pg_namespace n ON t.typnamespace = n.oid
+    WHERE n.nspname = 'public' AND t.typname = 'user_role' AND e.enumlabel = 'pelanggan'
+  ) THEN
+    ALTER TYPE public.user_role RENAME VALUE 'pelanggan' TO 'customer';
+  END IF;
+END $$;
 
 DO $$ BEGIN
   CREATE TYPE public.gender_category AS ENUM ('pria', 'wanita', 'unisex');
@@ -59,7 +68,7 @@ CREATE TABLE IF NOT EXISTS public.profiles (
   email text NOT NULL UNIQUE,
   full_name text NOT NULL DEFAULT '',
   phone_whatsapp text,
-  role public.user_role NOT NULL DEFAULT 'pelanggan',
+  role public.user_role NOT NULL DEFAULT 'customer',
   default_address jsonb,
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now()
@@ -173,7 +182,7 @@ CREATE TABLE IF NOT EXISTS public.cart_items (
   UNIQUE (user_id, product_id, size, color_name)
 );
 
--- 4.9 Orders (Supports both Authenticated Pelanggan & Guest Checkout)
+-- 4.9 Orders (Supports both Authenticated Customer & Guest Checkout)
 CREATE TABLE IF NOT EXISTS public.orders (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   order_number text NOT NULL UNIQUE,
@@ -293,7 +302,7 @@ AS $$
   );
 $$;
 
--- 6.3 Auto-create Profile on Auth User Sign Up (Always assigns 'pelanggan' by default)
+-- 6.3 Auto-create Profile on Auth User Sign Up (Always assigns 'customer' by default)
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS trigger
 LANGUAGE plpgsql
@@ -307,7 +316,7 @@ BEGIN
     NEW.email,
     COALESCE(NEW.raw_user_meta_data ->> 'full_name', ''),
     NEW.raw_user_meta_data ->> 'phone_whatsapp',
-    'pelanggan'
+    'customer'
   )
   ON CONFLICT (id) DO UPDATE
   SET email = EXCLUDED.email,

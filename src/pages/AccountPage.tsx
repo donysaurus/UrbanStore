@@ -94,7 +94,7 @@ export const AccountPage: React.FC = () => {
                     : 'bg-surface-alt text-ink border-hairline'
                 }`}
               >
-                Role: {profile?.role ?? 'pelanggan'}
+                Role: {profile?.role ?? 'customer'}
               </span>
               <span className="text-[11px] text-muted-slate">{user.email}</span>
             </div>

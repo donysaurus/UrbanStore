@@ -1,6 +1,6 @@
 # Panduan Setup Database Supabase — UrbanStore
 
-Dokumen ini berisi panduan langkah demi langkah bagi Database Administrator (DBA) dan developer untuk mengaktifkan skema database, Row Level Security (RLS), transaksi stok atomik, serta autentikasi berbasis peran (`admin` dan `pelanggan`) di Supabase.
+Dokumen ini berisi panduan langkah demi langkah bagi Database Administrator (DBA) dan developer untuk mengaktifkan skema database, Row Level Security (RLS), transaksi stok atomik, serta autentikasi berbasis peran (`admin` dan `customer`) di Supabase.
 
 ## 1. Struktur File
 - `supabase/schema.sql`: Skema lengkap PostgreSQL (enum, tabel, indeks, trigger profil otomatis, proteksi eskalasi role, fungsi RPC atomik `create_order`, `validate_promo_code`, `get_order_by_number`, dan RLS policies).
@@ -17,8 +17,8 @@ Dokumen ini berisi panduan langkah demi langkah bagi Database Administrator (DBA
 2. Pastikan **Enable Email provider** aktif.
 3. *(Opsional untuk Development/Testing)* Jika ingin pengguna bisa langsung login setelah mendaftar tanpa menunggu verifikasi email inbox, matikan sementara opsi **Confirm email**.
 
-## 4. Membuat Akun Role `admin` dan `pelanggan`
-Secara keamanan standar, setiap registrasi baru melalui aplikasi otomatis mendapatkan role **`pelanggan`** melalui trigger `public.handle_new_user()` (dan trigger `prevent_role_self_escalation()` memblokir user mengubah rolenya sendiri).
+## 4. Membuat Akun Role `admin` dan `customer`
+Secara keamanan standar, setiap registrasi baru melalui aplikasi otomatis mendapatkan role **`customer`** melalui trigger `public.handle_new_user()` (dan trigger `prevent_role_self_escalation()` memblokir user mengubah rolenya sendiri).
 
 Untuk membuat akun **Admin**:
 1. Daftarkan akun melalui halaman `/login` (tab **Daftar Akun**) di aplikasi, atau buat melalui **Authentication → Users → Add User** di Supabase Dashboard.

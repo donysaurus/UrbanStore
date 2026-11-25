@@ -1,4 +1,4 @@
-export type UserRole = 'admin' | 'pelanggan';
+export type UserRole = 'admin' | 'customer';
 
 export type GenderCategory = 'pria' | 'wanita' | 'unisex';
 

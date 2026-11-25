@@ -1,6 +1,7 @@
-﻿import React, { useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { ArrowLeft, ArrowRight, Check, Lock } from 'lucide-react';
 import { EditorialImage } from '../components/EditorialImage';
+import { useAuth } from '../context/AuthContext';
 import { useStore } from '../context/StoreContext';
 import { PAYMENT_METHODS, SHIPPING_METHODS } from '../data/products';
 import { OrderRecord, ShippingAddress } from '../types';
@@ -48,6 +49,7 @@ const INDONESIAN_PROVINCES = [
 ];
 
 export const CheckoutPage: React.FC = () => {
+  const { profile } = useAuth();
   const {
     cart,
     cartCount,
@@ -74,6 +76,25 @@ export const CheckoutPage: React.FC = () => {
     postalCode: '',
     notes: '',
   });
+
+  useEffect(() => {
+    if (!profile) return;
+    setAddress((prev) => ({
+      ...prev,
+      fullName: prev.fullName || profile.defaultAddress?.fullName || profile.fullName || '',
+      whatsapp: prev.whatsapp || profile.defaultAddress?.whatsapp || profile.phoneWhatsapp || '',
+      email: prev.email || profile.defaultAddress?.email || profile.email || '',
+      address: prev.address || profile.defaultAddress?.address || '',
+      province: prev.province === 'DKI Jakarta' && profile.defaultAddress?.province
+        ? profile.defaultAddress.province
+        : prev.province,
+      city: prev.city === 'Jakarta Selatan' && profile.defaultAddress?.city
+        ? profile.defaultAddress.city
+        : prev.city,
+      district: prev.district || profile.defaultAddress?.district || '',
+      postalCode: prev.postalCode || profile.defaultAddress?.postalCode || '',
+    }));
+  }, [profile]);
 
   const [errors, setErrors] = useState<Partial<Record<keyof ShippingAddress, string>>>({});
   const [shippingId, setShippingId] = useState<string>(SHIPPING_METHODS[0].id);

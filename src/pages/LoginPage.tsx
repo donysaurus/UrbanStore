@@ -88,7 +88,7 @@ export const LoginPage: React.FC = () => {
           setMode('login');
           setPassword('');
         } else {
-          showToast('Akun pelanggan berhasil dibuat & otomatis login!', 'success');
+          showToast('Akun customer berhasil dibuat & otomatis login!', 'success');
           routerNavigate(redirectTarget || '/account', { replace: true });
         }
       }
@@ -121,7 +121,7 @@ export const LoginPage: React.FC = () => {
               <UserCheck className="w-4 h-4 text-ink shrink-0 mt-0.5" />
               <div>
                 <p className="font-semibold text-ink uppercase text-[11px] tracking-wider">
-                  Role Pelanggan
+                  Role Customer
                 </p>
                 <p className="text-muted-slate mt-0.5">
                   Otomatis aktif saat daftar. Simpan wishlist, sinkron keranjang, auto-fill alamat
@@ -283,7 +283,7 @@ export const LoginPage: React.FC = () => {
                   ? 'Memproses...'
                   : mode === 'login'
                     ? 'Masuk ke UrbanStore'
-                    : 'Buat Akun Pelanggan'}
+                    : 'Buat Akun Customer'}
               </span>
               {!submitting && <ArrowRight className="w-4 h-4" />}
             </button>

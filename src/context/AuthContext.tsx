@@ -57,7 +57,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       email: authUser.email ?? '',
       fullName: (authUser.user_metadata?.full_name as string) || '',
       phoneWhatsapp: (authUser.user_metadata?.phone_whatsapp as string) || null,
-      role: 'pelanggan',
+      role: 'customer',
       defaultAddress: null,
       createdAt: authUser.created_at,
     };
@@ -120,7 +120,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
 
       const loaded = await loadProfile(data.user);
-      return { ok: true, role: loaded?.role ?? 'pelanggan' };
+      return { ok: true, role: loaded?.role ?? 'customer' };
     },
     [loadProfile]
   );

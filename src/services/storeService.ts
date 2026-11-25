@@ -171,7 +171,7 @@ export async function fetchProfileById(userId: string): Promise<UserProfile | nu
     email: data.email,
     fullName: data.full_name ?? '',
     phoneWhatsapp: data.phone_whatsapp ?? null,
-    role: (data.role as UserRole) ?? 'pelanggan',
+    role: (data.role as UserRole) ?? 'customer',
     defaultAddress: (data.default_address as ShippingAddress | null) ?? null,
     createdAt: data.created_at,
   };
