@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { ArrowLeft, ArrowRight, Check, Lock } from 'lucide-react';
 import { EditorialImage } from '../components/EditorialImage';
 import { useStore } from '../context/StoreContext';
@@ -55,7 +55,7 @@ export const CheckoutPage: React.FC = () => {
     promoCode,
     discountAmount,
     clearCart,
-    saveOrder,
+    placeOrder,
     navigate,
     showToast,
   } = useStore();
@@ -140,33 +140,26 @@ export const CheckoutPage: React.FC = () => {
     }
   };
 
-  const handlePlaceOrder = () => {
+  const handlePlaceOrder = async () => {
     if (isSubmitting) return;
     setIsSubmitting(true);
 
-    const randomSuffix = `${Date.now().toString(36).toUpperCase().slice(-4)}${Math.floor(10 + Math.random() * 90)}`;
-    const orderNumber = `US-${new Date().getFullYear()}-${randomSuffix}`;
-    const newOrder: OrderRecord = {
-      orderNumber,
-      createdAt: new Date().toISOString(),
+    const result = await placeOrder({
       customer: address,
-      items: [...cart],
-      subtotal,
-      discount: discountAmount,
-      promoCode,
       shippingMethod: selectedShipping,
-      shippingFee: effectiveShippingFee,
       paymentMethod: selectedPayment,
+      shippingFee: effectiveShippingFee,
       total: grandTotal,
-      status: selectedPayment.id === 'cod' ? 'Diproses Kurator' : 'Menunggu Pembayaran',
-    };
+    });
 
-    window.setTimeout(() => {
-      saveOrder(newOrder);
+    setIsSubmitting(false);
+
+    if (result.ok) {
       clearCart();
-      setIsSubmitting(false);
-      navigate({ page: 'order-success', orderNumber });
-    }, 550);
+      navigate({ page: 'order-success', orderNumber: result.order.orderNumber });
+    } else {
+      showToast(result.error, 'error');
+    }
   };
 
   return (
