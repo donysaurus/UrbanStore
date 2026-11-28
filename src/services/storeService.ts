@@ -164,7 +164,14 @@ export async function fetchProfileById(userId: string): Promise<UserProfile | nu
     .eq('id', userId)
     .maybeSingle();
 
-  if (error || !data) return null;
+  if (error) {
+    console.error('[UrbanStore] fetchProfileById error:', error.message, error);
+    return null;
+  }
+  if (!data) {
+    console.warn('[UrbanStore] fetchProfileById: no profile row found for userId', userId);
+    return null;
+  }
 
   return {
     id: data.id,
