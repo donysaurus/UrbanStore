@@ -1,37 +1,9 @@
-import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import type { Session, User } from '@supabase/supabase-js';
 import { isSupabaseConfigured, supabase } from '../lib/supabase';
 import { fetchProfileById } from '../services/storeService';
-import { ShippingAddress, UserProfile, UserRole } from '../types';
-
-interface AuthContextValue {
-  session: Session | null;
-  user: User | null;
-  profile: UserProfile | null;
-  role: UserRole | null;
-  isAdmin: boolean;
-  isAuthenticated: boolean;
-  isLoading: boolean;
-  signInWithEmail: (
-    email: string,
-    password: string
-  ) => Promise<{ ok: boolean; role?: UserRole; error?: string }>;
-  signUpWithEmail: (params: {
-    email: string;
-    password: string;
-    fullName: string;
-    phoneWhatsapp?: string;
-  }) => Promise<{ ok: boolean; needsEmailConfirmation?: boolean; error?: string }>;
-  signOut: () => Promise<void>;
-  refreshProfile: () => Promise<void>;
-  updateProfile: (updates: {
-    fullName: string;
-    phoneWhatsapp?: string;
-    defaultAddress?: ShippingAddress | null;
-  }) => Promise<{ ok: boolean; error?: string }>;
-}
-
-const AuthContext = createContext<AuthContextValue | null>(null);
+import { ShippingAddress, UserProfile } from '../types';
+import { AuthContext } from './useAuth';
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [session, setSession] = useState<Session | null>(null);
@@ -229,9 +201,3 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     </AuthContext.Provider>
   );
 };
-
-export function useAuth() {
-  const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error('useAuth must be used inside AuthProvider');
-  return ctx;
-}

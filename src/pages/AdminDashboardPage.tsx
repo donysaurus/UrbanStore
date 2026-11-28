@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { AlertTriangle, Check, Database, Package, RefreshCw, ShieldAlert, Tag } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/useAuth';
 import { useStore } from '../context/StoreContext';
 import {
   adminCreateProduct,

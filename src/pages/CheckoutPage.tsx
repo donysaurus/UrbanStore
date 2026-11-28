@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowLeft, ArrowRight, Check, Lock } from 'lucide-react';
 import { EditorialImage } from '../components/EditorialImage';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/useAuth';
 import { useStore } from '../context/StoreContext';
 import { PAYMENT_METHODS, SHIPPING_METHODS } from '../data/products';
 import { OrderRecord, ShippingAddress } from '../types';

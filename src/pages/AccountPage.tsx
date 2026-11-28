@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowUpRight, LogOut, Package, Shield, User } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/useAuth';
 import { useStore } from '../context/StoreContext';
 import { fetchMyOrdersViaSupabase } from '../services/storeService';
 import { OrderRecord } from '../types';

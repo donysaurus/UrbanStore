@@ -23,7 +23,7 @@ import {
   ShippingAddress,
   ShippingMethod,
 } from '../types';
-import { useAuth } from './AuthContext';
+import { useAuth } from './useAuth';
 
 interface ToastState {
   message: string;
