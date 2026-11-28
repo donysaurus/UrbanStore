@@ -1,4 +1,5 @@
 import { isSupabaseConfigured, supabase } from '../lib/supabase';
+import { compressImageToWebP } from '../utils/imageUpload';
 import {
   CartItem,
   OrderRecord,
@@ -668,5 +669,94 @@ export async function adminCreateProduct(input: {
     return { ok: false, error: varError.message };
   }
 
+  return { ok: true };
+}
+
+export async function uploadProductImageToSupabase(file: File): Promise<{
+  ok: boolean;
+  url?: string;
+  originalSize?: number;
+  compressedSize?: number;
+  error?: string;
+}> {
+  if (!isSupabaseConfigured) {
+    return { ok: false, error: 'Supabase belum dikonfigurasi.' };
+  }
+
+  try {
+    const compressed = await compressImageToWebP(file);
+    const storagePath = `products/${compressed.fileName}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from('product-images')
+      .upload(storagePath, compressed.blob, {
+        contentType: 'image/webp',
+        cacheControl: '31536000',
+        upsert: false,
+      });
+
+    if (uploadError) {
+      return { ok: false, error: uploadError.message };
+    }
+
+    const { data: publicData } = supabase.storage
+      .from('product-images')
+      .getPublicUrl(storagePath);
+
+    return {
+      ok: true,
+      url: publicData.publicUrl,
+      originalSize: compressed.originalSize,
+      compressedSize: compressed.compressedSize,
+    };
+  } catch (err) {
+    return {
+      ok: false,
+      error: err instanceof Error ? err.message : 'Gagal mengunggah gambar.',
+    };
+  }
+}
+
+export async function adminUpdateProduct(
+  productId: string,
+  input: {
+    name: string;
+    category: 'pria' | 'wanita' | 'unisex';
+    department: 'Outerwear' | 'T-Shirts & Tops' | 'Pants & Trousers' | 'Blazers & Tailoring';
+    price: number;
+    shortSpec: string;
+    imageUrl?: string;
+  }
+): Promise<{ ok: boolean; error?: string }> {
+  const payload: Record<string, unknown> = {
+    name: input.name.trim(),
+    category: input.category,
+    department: input.department,
+    price: Math.max(0, Math.floor(input.price)),
+    short_spec: input.shortSpec.trim() || input.name.trim(),
+  };
+
+  if (input.imageUrl !== undefined) {
+    payload.images = input.imageUrl.trim() ? [input.imageUrl.trim()] : [];
+  }
+
+  const { error } = await supabase
+    .from('products')
+    .update(payload)
+    .eq('id', productId);
+
+  if (error) return { ok: false, error: error.message };
+  return { ok: true };
+}
+
+export async function adminDeleteProduct(
+  productId: string
+): Promise<{ ok: boolean; error?: string }> {
+  const { error } = await supabase
+    .from('products')
+    .delete()
+    .eq('id', productId);
+
+  if (error) return { ok: false, error: error.message };
   return { ok: true };
 }

@@ -5,13 +5,16 @@ import { useStore } from '../context/StoreContext';
 import {
   adminCreateProduct,
   adminCreatePromoCode,
+  adminDeleteProduct,
   adminFetchAllOrders,
   adminFetchPromoCodes,
   adminToggleProductSoldOut,
   adminTogglePromoCode,
   adminUpdateOrderStatus,
+  adminUpdateProduct,
   adminUpdateVariantStock,
   fetchCatalogFromSupabase,
+  uploadProductImageToSupabase,
 } from '../services/storeService';
 import { OrderRecord, OrderStatus, Product, PromoCodeRecord } from '../types';
 import { formatIDR } from '../utils/format';
@@ -63,6 +66,20 @@ export const AdminDashboardPage: React.FC = () => {
   const [prodStockM, setProdStockM] = useState('10');
   const [prodStockL, setProdStockL] = useState('10');
   const [creatingProd, setCreatingProd] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [uploadInfo, setUploadInfo] = useState<string | null>(null);
+
+  // Edit product state
+  const [editingProductId, setEditingProductId] = useState<string | null>(null);
+  const [editProdName, setEditProdName] = useState('');
+  const [editProdCategory, setEditProdCategory] = useState<'pria' | 'wanita' | 'unisex'>('pria');
+  const [editProdDept, setEditProdDept] = useState<
+    'Outerwear' | 'T-Shirts & Tops' | 'Pants & Trousers' | 'Blazers & Tailoring'
+  >('Outerwear');
+  const [editProdPrice, setEditProdPrice] = useState('');
+  const [editProdSpec, setEditProdSpec] = useState('');
+  const [editProdImage, setEditProdImage] = useState('');
+  const [savingEditProd, setSavingEditProd] = useState(false);
 
   const loadAdminData = useCallback(async () => {
     if (!isAdmin) return;
@@ -568,13 +585,47 @@ export const AdminDashboardPage: React.FC = () => {
                   onChange={(e) => setProdPrice(e.target.value)}
                   className="h-10 px-3 bg-canvas border border-hairline text-[13px] text-ink"
                 />
-                <input
-                  type="text"
-                  placeholder="URL Foto Produk (https://...)"
-                  value={prodImage}
-                  onChange={(e) => setProdImage(e.target.value)}
-                  className="h-10 px-3 bg-canvas border border-hairline text-[13px] text-ink sm:col-span-2"
-                />
+                <div className="sm:col-span-2 space-y-1.5">
+                  <div className="flex items-center gap-2">
+                    <label className="h-10 px-3 bg-canvas border border-hairline text-[12px] font-semibold uppercase tracking-wider text-ink inline-flex items-center cursor-pointer hover:border-ink shrink-0">
+                      <span>{uploadingImage ? 'Mengompres WebP...' : 'Upload Foto (Max 5MB)'}</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        disabled={uploadingImage}
+                        className="hidden"
+                        onChange={async (e) => {
+                          const file = e.target.files?.[0];
+                          if (!file) return;
+                          setUploadingImage(true);
+                          setUploadInfo(null);
+                          const res = await uploadProductImageToSupabase(file);
+                          setUploadingImage(false);
+                          if (res.ok && res.url) {
+                            setProdImage(res.url);
+                            const origKb = Math.round((res.originalSize ?? 0) / 1024);
+                            const compKb = Math.round((res.compressedSize ?? 0) / 1024);
+                            setUploadInfo(`WebP siap (${origKb} KB → ${compKb} KB)`);
+                            showToast('Gambar dikompres ke WebP & berhasil diupload!', 'success');
+                          } else {
+                            showToast(res.error || 'Gagal upload gambar.', 'error');
+                          }
+                          e.target.value = '';
+                        }}
+                      />
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Atau tempel URL Foto (https://...)"
+                      value={prodImage}
+                      onChange={(e) => setProdImage(e.target.value)}
+                      className="flex-1 h-10 px-3 bg-canvas border border-hairline text-[13px] text-ink"
+                    />
+                  </div>
+                  {uploadInfo && (
+                    <p className="text-[11px] text-emerald-700 font-medium">{uploadInfo}</p>
+                  )}
+                </div>
                 <input
                   type="text"
                   placeholder="Spesifikasi Singkat"

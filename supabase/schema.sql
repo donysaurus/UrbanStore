@@ -848,3 +848,32 @@ GRANT SELECT ON public.newsletter_subscribers TO authenticated;
 GRANT EXECUTE ON FUNCTION public.validate_promo_code(text, integer) TO anon, authenticated;
 GRANT EXECUTE ON FUNCTION public.create_order(jsonb, jsonb, text, text, text) TO anon, authenticated;
 GRANT EXECUTE ON FUNCTION public.get_order_by_number(text) TO anon, authenticated;
+
+-- 10. SUPABASE STORAGE BUCKET FOR PRODUCT IMAGES (Public Read, Admin Write)
+INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+VALUES (
+  'product-images',
+  'product-images',
+  true,
+  5242880,
+  ARRAY['image/webp', 'image/jpeg', 'image/png', 'image/gif', 'image/avif']
+)
+ON CONFLICT (id) DO UPDATE SET
+  public = true,
+  file_size_limit = 5242880;
+
+DROP POLICY IF EXISTS "Public read product images" ON storage.objects;
+CREATE POLICY "Public read product images" ON storage.objects
+FOR SELECT USING (bucket_id = 'product-images');
+
+DROP POLICY IF EXISTS "Admins upload product images" ON storage.objects;
+CREATE POLICY "Admins upload product images" ON storage.objects
+FOR INSERT WITH CHECK (bucket_id = 'product-images' AND public.is_admin());
+
+DROP POLICY IF EXISTS "Admins update product images" ON storage.objects;
+CREATE POLICY "Admins update product images" ON storage.objects
+FOR UPDATE USING (bucket_id = 'product-images' AND public.is_admin());
+
+DROP POLICY IF EXISTS "Admins delete product images" ON storage.objects;
+CREATE POLICY "Admins delete product images" ON storage.objects
+FOR DELETE USING (bucket_id = 'product-images' AND public.is_admin());
