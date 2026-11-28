@@ -827,7 +827,24 @@ DROP POLICY IF EXISTS "Admins manage reviews" ON public.product_reviews;
 CREATE POLICY "Admins manage reviews" ON public.product_reviews
 FOR ALL USING (public.is_admin()) WITH CHECK (public.is_admin());
 
--- 9. GRANT EXECUTE ON PUBLIC RPC FUNCTIONS
+-- 9. GRANT SCHEMA, TABLE & RPC PRIVILEGES (Required alongside RLS)
+GRANT USAGE ON SCHEMA public TO anon, authenticated;
+
+-- Public catalog & reference tables (RLS restricts writes to admin)
+GRANT SELECT ON public.products, public.product_variants, public.shipping_methods, public.payment_methods, public.product_reviews TO anon, authenticated;
+GRANT INSERT, UPDATE, DELETE ON public.products, public.product_variants, public.shipping_methods, public.payment_methods, public.promo_codes, public.product_reviews TO authenticated;
+
+-- Authenticated user tables (RLS restricts to own rows or admin)
+GRANT SELECT, UPDATE ON public.profiles TO authenticated;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.wishlists, public.cart_items TO authenticated;
+GRANT SELECT, UPDATE ON public.orders TO authenticated;
+GRANT SELECT ON public.order_items TO authenticated;
+
+-- Newsletter (public insert, admin select via RLS)
+GRANT INSERT ON public.newsletter_subscribers TO anon, authenticated;
+GRANT SELECT ON public.newsletter_subscribers TO authenticated;
+
+-- RPC functions
 GRANT EXECUTE ON FUNCTION public.validate_promo_code(text, integer) TO anon, authenticated;
 GRANT EXECUTE ON FUNCTION public.create_order(jsonb, jsonb, text, text, text) TO anon, authenticated;
 GRANT EXECUTE ON FUNCTION public.get_order_by_number(text) TO anon, authenticated;
