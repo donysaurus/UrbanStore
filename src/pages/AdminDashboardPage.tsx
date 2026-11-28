@@ -3,6 +3,7 @@ import { AlertTriangle, Check, Database, Package, RefreshCw, ShieldAlert, Tag } 
 import { useAuth } from '../context/AuthContext';
 import { useStore } from '../context/StoreContext';
 import {
+  adminCreateProduct,
   adminCreatePromoCode,
   adminFetchAllOrders,
   adminFetchPromoCodes,
@@ -49,6 +50,19 @@ export const AdminDashboardPage: React.FC = () => {
   const [newPromoType, setNewPromoType] = useState<'percentage' | 'fixed'>('percentage');
   const [newPromoValue, setNewPromoValue] = useState('15');
   const [newPromoMin, setNewPromoMin] = useState('0');
+
+  // New product form
+  const [prodName, setProdName] = useState('');
+  const [prodCategory, setProdCategory] = useState<'pria' | 'wanita' | 'unisex'>('pria');
+  const [prodDept, setProdDept] = useState<
+    'Outerwear' | 'T-Shirts & Tops' | 'Pants & Trousers' | 'Blazers & Tailoring'
+  >('Outerwear');
+  const [prodPrice, setProdPrice] = useState('249000');
+  const [prodSpec, setProdSpec] = useState('');
+  const [prodImage, setProdImage] = useState('');
+  const [prodStockM, setProdStockM] = useState('10');
+  const [prodStockL, setProdStockL] = useState('10');
+  const [creatingProd, setCreatingProd] = useState(false);
 
   const loadAdminData = useCallback(async () => {
     if (!isAdmin) return;
@@ -469,8 +483,139 @@ export const AdminDashboardPage: React.FC = () => {
 
         {/* TAB 2: INVENTORY */}
         {activeTab === 'inventory' && (
-          <div className="space-y-4">
-            {adminProducts.map((prod) => (
+          <div className="space-y-6">
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                if (!prodName.trim()) return;
+                setCreatingProd(true);
+                const res = await adminCreateProduct({
+                  name: prodName,
+                  category: prodCategory,
+                  department: prodDept,
+                  price: Number(prodPrice) || 0,
+                  shortSpec: prodSpec,
+                  description: prodSpec,
+                  material: '100% Cotton',
+                  fitType: 'Boxy Fit',
+                  imageUrl: prodImage,
+                  colorName: 'Onyx Black',
+                  colorHex: '#111111',
+                  sizes: [
+                    { size: 'M', stock: Number(prodStockM) || 0, chestOrWaistCm: 58, lengthCm: 71, shoulderOrOpeningCm: 50 },
+                    { size: 'L', stock: Number(prodStockL) || 0, chestOrWaistCm: 61, lengthCm: 74, shoulderOrOpeningCm: 52 },
+                  ],
+                });
+                setCreatingProd(false);
+                if (res.ok) {
+                  showToast('Produk baru berhasil ditambahkan!', 'success');
+                  setProdName('');
+                  setProdSpec('');
+                  setProdImage('');
+                  await loadAdminData();
+                  await refreshCatalog();
+                } else {
+                  showToast(res.error || 'Gagal menambah produk.', 'error');
+                }
+              }}
+              className="border border-hairline bg-surface-alt p-5 space-y-4"
+            >
+              <h3 className="text-[12px] font-semibold uppercase tracking-widest text-ink">
+                + Tambah Produk Real Baru
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                <input
+                  type="text"
+                  required
+                  placeholder="Nama Produk *"
+                  value={prodName}
+                  onChange={(e) => setProdName(e.target.value)}
+                  className="h-10 px-3 bg-canvas border border-hairline text-[13px] text-ink"
+                />
+                <select
+                  value={prodCategory}
+                  onChange={(e) => setProdCategory(e.target.value as 'pria' | 'wanita' | 'unisex')}
+                  className="h-10 px-3 bg-canvas border border-hairline text-[13px] text-ink"
+                >
+                  <option value="pria">Kategori: Pria</option>
+                  <option value="wanita">Kategori: Wanita</option>
+                  <option value="unisex">Kategori: Unisex</option>
+                </select>
+                <select
+                  value={prodDept}
+                  onChange={(e) =>
+                    setProdDept(
+                      e.target.value as
+                        | 'Outerwear'
+                        | 'T-Shirts & Tops'
+                        | 'Pants & Trousers'
+                        | 'Blazers & Tailoring'
+                    )
+                  }
+                  className="h-10 px-3 bg-canvas border border-hairline text-[13px] text-ink"
+                >
+                  <option value="Outerwear">Outerwear</option>
+                  <option value="T-Shirts & Tops">T-Shirts &amp; Tops</option>
+                  <option value="Pants & Trousers">Pants &amp; Trousers</option>
+                  <option value="Blazers & Tailoring">Blazers &amp; Tailoring</option>
+                </select>
+                <input
+                  type="number"
+                  required
+                  min={0}
+                  placeholder="Harga (IDR) *"
+                  value={prodPrice}
+                  onChange={(e) => setProdPrice(e.target.value)}
+                  className="h-10 px-3 bg-canvas border border-hairline text-[13px] text-ink"
+                />
+                <input
+                  type="text"
+                  placeholder="URL Foto Produk (https://...)"
+                  value={prodImage}
+                  onChange={(e) => setProdImage(e.target.value)}
+                  className="h-10 px-3 bg-canvas border border-hairline text-[13px] text-ink sm:col-span-2"
+                />
+                <input
+                  type="text"
+                  placeholder="Spesifikasi Singkat"
+                  value={prodSpec}
+                  onChange={(e) => setProdSpec(e.target.value)}
+                  className="h-10 px-3 bg-canvas border border-hairline text-[13px] text-ink"
+                />
+                <div className="flex gap-2">
+                  <input
+                    type="number"
+                    min={0}
+                    placeholder="Stok M"
+                    value={prodStockM}
+                    onChange={(e) => setProdStockM(e.target.value)}
+                    className="w-1/2 h-10 px-3 bg-canvas border border-hairline text-[13px] text-ink"
+                  />
+                  <input
+                    type="number"
+                    min={0}
+                    placeholder="Stok L"
+                    value={prodStockL}
+                    onChange={(e) => setProdStockL(e.target.value)}
+                    className="w-1/2 h-10 px-3 bg-canvas border border-hairline text-[13px] text-ink"
+                  />
+                </div>
+              </div>
+              <button
+                type="submit"
+                disabled={creatingProd}
+                className="px-6 py-2.5 bg-ink text-canvas text-[11px] font-semibold uppercase tracking-widest hover:bg-neutral-800 disabled:bg-neutral-400 cursor-pointer"
+              >
+                {creatingProd ? 'Menyimpan...' : 'Simpan Produk ke Supabase'}
+              </button>
+            </form>
+
+            {adminProducts.length === 0 ? (
+              <div className="border border-hairline bg-surface-alt p-10 text-center text-[13px] text-muted-slate">
+                Belum ada produk di database. Gunakan form di atas untuk menambahkan produk real pertama.
+              </div>
+            ) : (
+              adminProducts.map((prod) => (
               <div key={prod.id} className="border border-hairline bg-canvas p-5 space-y-4">
                 <div className="flex flex-wrap items-center justify-between gap-4 pb-3 border-b border-hairline">
                   <div>
@@ -537,7 +682,8 @@ export const AdminDashboardPage: React.FC = () => {
                   })}
                 </div>
               </div>
-            ))}
+              ))
+            )}
           </div>
         )}
 

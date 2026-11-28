@@ -600,3 +600,73 @@ export async function adminCreatePromoCode(promo: {
   if (error) return { ok: false, error: error.message };
   return { ok: true };
 }
+
+export async function adminCreateProduct(input: {
+  name: string;
+  category: 'pria' | 'wanita' | 'unisex';
+  department: 'Outerwear' | 'T-Shirts & Tops' | 'Pants & Trousers' | 'Blazers & Tailoring';
+  price: number;
+  shortSpec: string;
+  description: string;
+  material: string;
+  fitType: 'Boxy Fit' | 'Relaxed Wide' | 'Cropped Hem' | 'Tailored Relaxed';
+  imageUrl: string;
+  colorName: string;
+  colorHex: string;
+  sizes: Array<{ size: string; stock: number; chestOrWaistCm: number; lengthCm: number; shoulderOrOpeningCm: number }>;
+}): Promise<{ ok: boolean; error?: string }> {
+  const slugBase = input.name
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-');
+  const slug = `${slugBase}-${Date.now().toString(36).slice(-4)}`;
+  const isPants = input.department === 'Pants & Trousers';
+
+  const { data: prod, error: prodError } = await supabase
+    .from('products')
+    .insert({
+      slug,
+      name: input.name.trim(),
+      category: input.category,
+      department: input.department,
+      look_number: `LOOK N° ${Math.floor(10 + Math.random() * 89)}`,
+      price: Math.max(0, Math.floor(input.price)),
+      badge: 'NEW DROP',
+      short_spec: input.shortSpec.trim() || input.name.trim(),
+      description: input.description.trim() || input.shortSpec.trim() || input.name.trim(),
+      material: input.material.trim() || '100% Cotton',
+      care_instructions: ['Cuci air dingin mode lembut', 'Jemur di tempat teduh'],
+      fit_type: input.fitType,
+      colors: [{ name: input.colorName.trim() || 'Onyx Black', hex: input.colorHex || '#111111' }],
+      images: input.imageUrl.trim() ? [input.imageUrl.trim()] : [],
+      home_featured: true,
+      home_span: 'col-4',
+      is_active: true,
+    })
+    .select('id')
+    .single();
+
+  if (prodError || !prod) {
+    return { ok: false, error: prodError?.message || 'Gagal membuat produk.' };
+  }
+
+  const variantsPayload = input.sizes.map((s, idx) => ({
+    product_id: prod.id,
+    size: s.size,
+    stock: Math.max(0, Math.floor(s.stock)),
+    chest_or_waist_cm: s.chestOrWaistCm,
+    length_cm: s.lengthCm,
+    shoulder_or_opening_cm: s.shoulderOrOpeningCm,
+    measurement_label: isPants ? 'Lingkar Pinggang' : 'Lebar Dada',
+    secondary_label: isPants ? 'Leg Opening' : 'Bahu',
+    sort_order: idx + 1,
+  }));
+
+  const { error: varError } = await supabase.from('product_variants').insert(variantsPayload);
+  if (varError) {
+    return { ok: false, error: varError.message };
+  }
+
+  return { ok: true };
+}
